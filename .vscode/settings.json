@@ -1,0 +1,22 @@
+{
+
+    "fileHeaderComment.parameter": {
+        "*": {
+            "prefixBeg": "/*!",
+            "prefixMid": "**",
+            "prefixEnd": "*/"
+        }
+    },
+    "fileHeaderComment.template": {
+        "*": [
+            "${prefixBeg}",
+            "${prefixMid} Copyright ${year} Diabetips",
+            "${prefixMid}",
+            "${prefixMid} All rights reserved",
+            "${prefixMid}",
+            "${prefixMid} Created by ${author} on ${date}",
+            "${prefixEnd}"
+        ]
+    },
+    "typescript.tsdk": "node_modules/typescript/lib"
+}

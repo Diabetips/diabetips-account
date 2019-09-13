@@ -1,0 +1,11 @@
+# Build directory
+/build
+
+# Logs directory
+/logs
+
+# NodeJS modules cache directory
+/node_modules
+
+# Sqlite database files
+*.sqlite
