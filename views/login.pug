@@ -1,0 +1,23 @@
+doctype html
+html
+    head
+        title Connexion
+        link(rel="stylesheet" href="/css/materialize.min.css")
+        link(rel="stylesheet" href="/css/style.css")
+    body.grey.lighten-4
+        .row.login
+            form.col.s8.offset-s2.card.white(method="post")
+                .card-content
+                    .row
+                        span.card-title Connexion
+                    .row
+                        .input-field
+                            input#email(type="text" name="email")
+                            label(for="email") Adresse email
+                        .input-field
+                            input#password(type="password" name="password")
+                            label(for="password") Mot de passe
+                    .row
+                        .input-field
+                            button.btn.waves-effect(type="submit") Connexion
+        script(src="/js/materialize.min.js")

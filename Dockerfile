@@ -16,5 +16,6 @@ WORKDIR /home/diabetips-account
 COPY package.json ./
 COPY --from=0 /home/diabetips-account/node_modules ./node_modules
 COPY config ./config
+COPY static ./static
 COPY views ./views
 COPY --from=0 /home/diabetips-account/build ./build

@@ -1,0 +1,13 @@
+/*
+** Copyright 2019 Diabetips
+**
+** All rights reserved
+*/
+
+html, body {
+    height: 100%;
+}
+
+.login {
+    margin-top: 128px;
+}
