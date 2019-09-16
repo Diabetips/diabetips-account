@@ -8,6 +8,38 @@ html, body {
     height: 100%;
 }
 
+.brand-logo {
+    margin-left: 24px;
+}
+
+.brand-logo > img {
+    margin-top: 8px;
+    height: 48px;
+}
+
+.card .card-content .card-title {
+    margin-bottom: 24px;
+}
+
+.card-content .row:last-child {
+    margin-bottom: 0;
+}
+
 .login {
-    margin-top: 128px;
+    margin-top: 64px;
+}
+
+.login .logo {
+    margin-left: 50%;
+    transform: translateX(-50%);
+    height: 64px;
+    margin-bottom: 24px;
+}
+
+body > .container {
+    margin-top: 24px;
+}
+
+body > .container.card {
+    padding: 48px 24px;
 }

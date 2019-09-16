@@ -1,0 +1,36 @@
+doctype html
+html
+    head
+        title Profil
+        link(rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons")
+        link(rel="stylesheet" href="/css/materialize.min.css")
+        link(rel="stylesheet" href="/css/style.css")
+    body.grey.lighten-4
+        nav.blue
+            .nav-wrapper
+                a.brand-logo(href="/")
+                    img(src="/img/logo-white.png")
+        .container
+            .row
+                form.col.s10.offset-s1.card.white(method="post")
+                    .card-content
+                        .row
+                            span.card-title Profil
+                        .row
+                            .col.s6.input-field
+                                input#first_name(type="text" name="first_name" value=user.first_name)
+                                label(for="first_name") Prénom
+                            .col.s6.input-field
+                                input#last_name(type="text" name="last_name" value=user.last_name)
+                                label(for="last_name") Nom
+                        .row
+                            .col.s12.input-field
+                                input#email(type="text" name="email" value=user.email)
+                                label(for="email") Adresse email
+                            .col.s12.input-field
+                                input#password(type="password" name="password")
+                                label(for="password") Mot de passe
+                        .row
+                            .input-field
+                                button.btn.waves-effect.blue(type="submit") Sauvegarder
+        script(src="/js/materialize.min.js")

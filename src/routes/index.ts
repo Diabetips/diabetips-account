@@ -10,7 +10,9 @@ import { Request, Response } from "express";
 import request = require("request-promise-native");
 
 import { getLogin, postLogin } from "./login";
-export { getLogin, postLogin };
+import { getLogout } from "./logout";
+import { getProfile, postProfile } from "./profile";
+export { getLogin, getLogout, getProfile, postLogin, postProfile };
 
 export async function getIndex(req: Request, res: Response) {
     if (req.session === undefined) {

@@ -2,26 +2,32 @@ doctype html
 html
     head
         title Mon compte
+        link(rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons")
         link(rel="stylesheet" href="/css/materialize.min.css")
         link(rel="stylesheet" href="/css/style.css")
     body.grey.lighten-4
-        .row
-            .col.s4.card.white
-                .card-content
-                    .row
-                        span.card-title Profil
-                    .row
-                        .col.s6
-                            span
-                                b Nom
-                        .col.s6.right-align
-                            span #{user.first_name} #{user.last_name}
-                    .row
-                        .col.s6
-                            span
-                                b Adresse email
-                        .col.s6.right-align
-                            span #{user.email}
-                .card-action
-                    a(href="/profile") Modifier mon profil
+        nav.blue
+            .nav-wrapper
+                a.brand-logo(href="/")
+                    img(src="/img/logo-white.png")
+        .container
+            .row
+                .col.s4.card.white
+                    .card-content
+                        .row
+                            span.card-title Profil
+                        .row
+                            .col.s6
+                                span
+                                    b Nom
+                            .col.s6.right-align
+                                span #{user.first_name} #{user.last_name}
+                        .row
+                            .col.s6
+                                span
+                                    b Adresse email
+                            .col.s6.right-align
+                                span #{user.email}
+                    .card-action
+                        a(href="/profile") Modifier mon profil
         script(src="/js/materialize.min.js")
