@@ -13,7 +13,8 @@ require("express-async-errors"); // patch express to forward errors in async han
 import { NextFunction, Request, Response } from "express";
 
 import { httpLogger, log4js, logger } from "./logger";
-import { getIndex, getLogin, getLogout, getProfile, postLogin, postProfile } from "./routes";
+import { getIndex, getLogin, getLogout, getProfile, getRegister, getResetPassword,
+    postLogin, postProfile, postRegister, postResetPassword } from "./routes";
 
 export const app = express();
 
@@ -28,8 +29,8 @@ app.use(cookieSession({
     sameSite: "strict",
     secret: "lol",
     httpOnly: true,
-    //secure: true,
-    //secureProxy: true,
+    // secure: true,
+    // secureProxy: true,
 }));
 
 // Static files
@@ -48,7 +49,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     }
     if (req.session.accessToken !== undefined) {
         // TODO access token
-        //req.session.accessToken = undefined;
+        // req.session.accessToken = undefined;
     }
     if (req.session.accessToken === undefined &&
         req.session.refreshToken !== undefined) {
@@ -57,7 +58,9 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     }
 
     if (req.session.refreshToken === undefined &&
-        req.path !== "/login") {
+        req.path !== "/login" &&
+        req.path !== "/register" &&
+        req.path !== "/reset-password") {
         req.session.redirect = req.url;
         res.redirect("/login");
     } else {
@@ -68,19 +71,23 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 // Route handlers
 app.get("/",      getIndex);
 app.get("/login", getLogin);
-app.post("/login", postLogin);
 app.get("/logout", getLogout);
 app.get("/profile", getProfile);
+app.get("/register", getRegister);
+app.get("/reset-password", getResetPassword);
+
+app.post("/login", postLogin);
 app.post("/profile", postProfile);
+app.post("/register", postRegister);
+app.post("/reset-password", postResetPassword);
 
 // 404 handler
 app.use((req: Request, res: Response, next: NextFunction) => {
-    // TODO
-    next();
+    res.redirect("/");
 });
 
 // Error handler
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     logger.error(err.stack);
-    next();
+    res.redirect("/");
 });

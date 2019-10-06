@@ -4,8 +4,19 @@
 ** All rights reserved
 */
 
-html, body {
-    height: 100%;
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+main {
+    flex: 1 0 auto;
+}
+
+.material-icons {
+    vertical-align: middle;
+    padding-left: 6px;
+    padding-right: 6px;
 }
 
 .brand-logo {
@@ -13,27 +24,34 @@ html, body {
 }
 
 .brand-logo > img {
-    margin-top: 8px;
-    height: 48px;
+    display: block;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: 64px;
 }
 
 .card .card-content .card-title {
-    margin-bottom: 24px;
+    padding-bottom: 24px;
 }
 
 .card-content .row:last-child {
     margin-bottom: 0;
 }
 
-.login {
-    margin-top: 64px;
+.login .logo, .register .logo, .reset-password .logo {
+    display: block;
+    margin: auto;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    height: 96px;
 }
 
-.login .logo {
-    margin-left: 50%;
-    transform: translateX(-50%);
-    height: 64px;
-    margin-bottom: 24px;
+@media only screen and (min-width: 601px) {
+    .login .logo, .register .logo, .reset-password .logo {
+        padding-top: 128px !important;
+        padding-bottom: 48px !important;
+        height: 240px !important;
+    }
 }
 
 body > .container {
@@ -42,4 +60,10 @@ body > .container {
 
 body > .container.card {
     padding: 48px 24px;
+}
+
+@media only screen and (min-width: 601px) {
+    .right-align-on-med-and-up {
+        text-align: right;
+    }
 }
