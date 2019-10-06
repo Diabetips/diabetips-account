@@ -9,6 +9,7 @@
 import { Request, Response } from "express";
 import request = require("request-promise-native");
 
+import { config } from "../config";
 import { logger } from "../logger";
 
 interface ITokenResponse {
@@ -51,7 +52,7 @@ export async function postLogin(req: Request, res: Response) {
 
     let tokens: ITokenResponse;
     try {
-        tokens = await request("https://api.diabetips.fr/v1/auth/token", {
+        tokens = await request(config.apiUrl + "/v1/auth/token", {
             method: "POST",
             form: {
                 grant_type: "password",

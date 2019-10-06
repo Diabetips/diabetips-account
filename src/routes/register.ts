@@ -9,6 +9,7 @@
 import { Request, Response } from "express";
 import request = require("request-promise-native");
 
+import { config } from "../config";
 import { logger } from "../logger";
 
 import { postLogin } from "./login";
@@ -75,7 +76,7 @@ export async function postRegister(req: Request, res: Response) {
     }
 
     try {
-        await request("https://api.diabetips.fr/v1/users", {
+        await request(config.apiUrl + "/v1/users", {
             method: "POST",
             body: req.body,
             json: true,

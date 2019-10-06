@@ -9,6 +9,8 @@
 import { Request, Response } from "express";
 import request = require("request-promise-native");
 
+import { config } from "../config";
+
 import { getLogin, postLogin } from "./login";
 import { getLogout } from "./logout";
 import { getProfile, postProfile } from "./profile";
@@ -29,7 +31,7 @@ export async function getIndex(req: Request, res: Response) {
         .toString("ascii"),
     ).sub;
 
-    const user = await request("https://api.diabetips.fr/v1/users/" + uid, { json: true });
+    const user = await request(config.apiUrl + "/v1/users/" + uid, { json: true });
 
     res.render("index", { user });
 }

@@ -9,6 +9,7 @@
 import { Request, Response } from "express";
 import request = require("request-promise-native");
 
+import { config } from "../config";
 import { logger } from "../logger";
 
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -21,13 +22,13 @@ function getUid(req: Request): string {
     return JSON.parse(
         Buffer
         .from((req.session.accessToken as string).split(".")[1], "base64")
-        .toString("ascii")
+        .toString("ascii"),
     ).sub;
 }
 
 async function renderProfile(req: Request, res: Response, locals: any = {}) {
     try {
-        locals.user = await request("https://api.diabetips.fr/v1/users/" + getUid(req), {
+        locals.user = await request(config.apiUrl + "/v1/users/" + getUid(req), {
             json: true,
         });
     } catch (err) {
@@ -77,7 +78,7 @@ export async function postProfile(req: Request, res: Response) {
     }
 
     try {
-        await request("https://api.diabetips.fr/v1/users/" + getUid(req), {
+        await request(config.apiUrl + "/v1/users/" + getUid(req), {
             method: "PUT",
             body: req.body,
             json: true,

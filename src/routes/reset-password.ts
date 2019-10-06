@@ -9,6 +9,7 @@
 import { Request, Response } from "express";
 import request = require("request-promise-native");
 
+import { config } from "../config";
 import { logger } from "../logger";
 
 function renderResetPassword(req: Request, res: Response, locals: any = {}) {
@@ -42,7 +43,7 @@ export async function postResetPassword(req: Request, res: Response) {
     }
 
     try {
-        await request("https://api.diabetips.fr/v1/auth/reset-password", {
+        await request(config.apiUrl + "/v1/auth/reset-password", {
             method: "POST",
             body: {
                 email: req.body.email,
