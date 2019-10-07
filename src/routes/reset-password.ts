@@ -43,7 +43,7 @@ export async function postResetPassword(req: Request, res: Response) {
     }
 
     try {
-        await request(config.apiUrl + "/v1/auth/reset-password", {
+        await request(config.diabetips.apiUrl + "/v1/auth/reset-password", {
             method: "POST",
             body: {
                 email: req.body.email,

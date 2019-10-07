@@ -52,7 +52,7 @@ export async function postLogin(req: Request, res: Response) {
 
     let tokens: ITokenResponse;
     try {
-        tokens = await request(config.apiUrl + "/v1/auth/token", {
+        tokens = await request(config.diabetips.apiUrl + "/v1/auth/token", {
             method: "POST",
             form: {
                 grant_type: "password",

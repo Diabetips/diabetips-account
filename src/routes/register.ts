@@ -76,7 +76,7 @@ export async function postRegister(req: Request, res: Response) {
     }
 
     try {
-        await request(config.apiUrl + "/v1/users", {
+        await request(config.diabetips.apiUrl + "/v1/users", {
             method: "POST",
             body: req.body,
             json: true,

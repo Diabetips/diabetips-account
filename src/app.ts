@@ -13,8 +13,7 @@ require("express-async-errors"); // patch express to forward errors in async han
 import { NextFunction, Request, Response } from "express";
 
 import { httpLogger, log4js, logger } from "./logger";
-import { getIndex, getLogin, getLogout, getProfile, getRegister, getResetPassword,
-    postLogin, postProfile, postRegister, postResetPassword } from "./routes";
+import { rootRouter } from "./routes";
 
 export const app = express();
 
@@ -68,18 +67,8 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     }
 });
 
-// Route handlers
-app.get("/",      getIndex);
-app.get("/login", getLogin);
-app.get("/logout", getLogout);
-app.get("/profile", getProfile);
-app.get("/register", getRegister);
-app.get("/reset-password", getResetPassword);
-
-app.post("/login", postLogin);
-app.post("/profile", postProfile);
-app.post("/register", postRegister);
-app.post("/reset-password", postResetPassword);
+// Map router
+app.use(rootRouter);
 
 // 404 handler
 app.use((req: Request, res: Response, next: NextFunction) => {

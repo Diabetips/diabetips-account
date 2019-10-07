@@ -28,7 +28,7 @@ function getUid(req: Request): string {
 
 async function renderProfile(req: Request, res: Response, locals: any = {}) {
     try {
-        locals.user = await request(config.apiUrl + "/v1/users/" + getUid(req), {
+        locals.user = await request(config.diabetips.apiUrl + "/v1/users/" + getUid(req), {
             json: true,
         });
     } catch (err) {
@@ -78,7 +78,7 @@ export async function postProfile(req: Request, res: Response) {
     }
 
     try {
-        await request(config.apiUrl + "/v1/users/" + getUid(req), {
+        await request(config.diabetips.apiUrl + "/v1/users/" + getUid(req), {
             method: "PUT",
             body: req.body,
             json: true,
