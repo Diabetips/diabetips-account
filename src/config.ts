@@ -45,7 +45,7 @@ function resolveValue(s: string) {
             case "$":
                 let val = process.env[arg];
                 if (val != null) {
-                    val = JSON.parse(val);
+                    val = JSON.parse("\"" + val + "\"");
                 }
                 return val;
             case "%":
