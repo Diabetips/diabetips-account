@@ -51,7 +51,7 @@ export async function postResetPassword(req: Request, res: Response) {
             json: true,
         });
     } catch (err) {
-        logger.error("API error:", err.stack);
+        logger.error("API error:", err.stack || err);
         return renderResetPassword(req, res, { error: "Erreur inconnue" });
     }
 

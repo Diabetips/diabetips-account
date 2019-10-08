@@ -82,7 +82,7 @@ export async function postRegister(req: Request, res: Response) {
             json: true,
         });
     } catch (err) {
-        logger.error("API error:", err.stack);
+        logger.error("API error:", err.stack || err);
 
         let error = "Erreur inconnue";
         if (err.response != null && err.response.body != null) {

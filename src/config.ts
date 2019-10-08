@@ -6,15 +6,15 @@
 ** Created by Arthur MELIN on Wed Aug 28 2019
 */
 
-import { guard, loadJsonFile, merge } from "./lib";
+import { Utils } from "./lib";
 
 const env = process.env.DIABETIPS_ENV || "dev";
 
-const baseConfig = loadJsonFile("config/config.json");
-const profileConfig = loadJsonFile(`config/config.${env}.json`);
-const pkg = guard(() => loadJsonFile("package.json"), {});
+const baseConfig = Utils.loadJsonFile("config/config.json");
+const profileConfig = Utils.loadJsonFile(`config/config.${env}.json`);
+const pkg = Utils.guard(() => Utils.loadJsonFile("package.json"), {});
 
-const tmp = merge(baseConfig, profileConfig);
+const tmp = Utils.merge(baseConfig, profileConfig);
 
 export const config = {
     ...tmp,
@@ -31,29 +31,39 @@ function get(obj: any, path: string): any {
     }
 }
 
+function resolveValue(s: string) {
+    return Utils.guard(() => {
+        const m = s.match(/(?<type>.)\{(?<arg>.*)\}/);
+        if (m == null || m.groups == null) {
+            return s;
+        }
+        const type = m.groups.type;
+        const arg = m.groups.arg;
+        switch (type) {
+            case "@":
+                return get(config, arg);
+            case "$":
+                return process.env[arg];
+            case "%":
+                // tslint:disable-next-line:no-eval
+                return eval(arg);
+        }
+    }, s);
+}
+
 function resolve(obj: any) {
     for (const key of Object.keys(obj)) {
         if (typeof obj[key] === "object") {
             resolve(obj[key]);
         } else if (typeof obj[key] === "string") {
-            obj[key] = obj[key].replace(/[@%$]\{[^}]+\}/,
-                (s: string) => JSON.parse("\"" + guard(() => {
-                const m = s.match(/(?<type>.)\{(?<arg>.*)\}/);
-                if (m == null || m.groups == null) {
-                    return s;
-                }
-                const type = m.groups.type;
-                const arg = m.groups.arg;
-                switch (type) {
-                    case "@":
-                        return get(config, arg);
-                    case "$":
-                        return process.env[arg];
-                    case "%":
-                        // tslint:disable-next-line:no-eval
-                        return eval(arg);
-                }
-            }, s) + "\""));
+            if (/^[@%$]\{[^}]+\}$/.test(obj[key])) {
+                // Full resolve (string -> any)
+                obj[key] = resolveValue(obj[key]);
+            } else {
+                // Partial resolve (string -> string)
+                obj[key] = obj[key].replace(/[@%$]\{[^}]+\}/,
+                    (s: string) => resolveValue(s));
+            }
         }
     }
 }

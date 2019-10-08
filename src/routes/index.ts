@@ -11,6 +11,7 @@ import express = require("express");
 import request = require("request-promise-native");
 
 import { config } from "../config";
+import { logger } from "../logger";
 
 import { oauthRouter } from "./oauth";
 
@@ -27,13 +28,18 @@ rootRouter.get("/", async function getIndex(req: Request, res: Response) {
         throw new Error("Missing session");
     }
 
-    const uid = JSON.parse(
-        Buffer
-        .from((req.session.accessToken as string).split(".")[1], "base64")
-        .toString("ascii"),
-    ).sub;
-
-    const user = await request(config.diabetips.apiUrl + "/v1/users/" + uid, { json: true });
+    let user: any;
+    try {
+        user = await request(config.diabetips.apiUrl + "/v1/users/me", {
+            headers: {
+                Authorization: "Bearer " + req.session.accessToken,
+            },
+            json: true,
+        });
+    } catch (err) {
+        logger.error("API error:", err.stack || err);
+        throw err;
+    }
 
     res.render("index", { user });
 });

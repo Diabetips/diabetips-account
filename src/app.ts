@@ -77,6 +77,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 // Error handler
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-    logger.error(err.stack);
-    res.redirect("/");
+    logger.error(err.stack || err);
+    req.session = {};
+    res.redirect("/login");
 });

@@ -39,8 +39,9 @@ async function main(args: string[]): Promise<void> {
 }
 
 if (module.parent == null) {
-    main(process.argv).then().catch((err: Error) => {
-        logger.fatal(err.stack);
-        process.exit(1);
-    });
+    main(process.argv)
+        .catch((err: Error) => {
+            logger.fatal(err.stack || err);
+            process.exit(1);
+        });
 }

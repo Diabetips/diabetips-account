@@ -9,10 +9,12 @@
     "logger": {
         "appenders": {
             "console": {
-                "type": "console"
+                "type": "console",
+                "layout": "@{logger.layout}"
             },
             "file": {
                 "type": "file",
+                "layout": "@{logger.layout}",
                 "filename": "logs/@{pkg.name}.log",
                 "maxLogSize": 10485760,
                 "backups": 10,
@@ -23,12 +25,17 @@
         "categories": {
             "default": {
                 "appenders": ["console", "file"],
-                "level": "all"
+                "level": "all",
+                "enableCallStack": true
             },
             "http": {
                 "appenders": ["console", "file"],
                 "level": "all"
             }
+        },
+        "layout": {
+            "type": "pattern",
+            "pattern": "%[[%d] [%p] %c -%] %m [%f{1}:%l]"
         }
     }
 }

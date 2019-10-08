@@ -14,25 +14,20 @@ import { logger } from "../logger";
 
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-function getUid(req: Request): string {
-    if (req.session === undefined) {
+async function renderProfile(req: Request, res: Response, locals: any = {}) {
+    if (req.session == null) {
         throw new Error("Missing session");
     }
 
-    return JSON.parse(
-        Buffer
-        .from((req.session.accessToken as string).split(".")[1], "base64")
-        .toString("ascii"),
-    ).sub;
-}
-
-async function renderProfile(req: Request, res: Response, locals: any = {}) {
     try {
-        locals.user = await request(config.diabetips.apiUrl + "/v1/users/" + getUid(req), {
+        locals.user = await request(config.diabetips.apiUrl + "/v1/users/me", {
+            headers: {
+                Authorization: "Bearer " + req.session.accessToken,
+            },
             json: true,
         });
     } catch (err) {
-        logger.error("API error:", err);
+        logger.error("API error:", err.stack || err);
         throw err;
     }
 
@@ -78,13 +73,13 @@ export async function postProfile(req: Request, res: Response) {
     }
 
     try {
-        await request(config.diabetips.apiUrl + "/v1/users/" + getUid(req), {
+        await request(config.diabetips.apiUrl + "/v1/users/me", {
             method: "PUT",
             body: req.body,
             json: true,
         });
     } catch (err) {
-        logger.error("API error:", err.stack);
+        logger.error("API error:", err.stack || err);
         return renderProfile(req, res, { error: "Erreur inconnue" });
     }
 

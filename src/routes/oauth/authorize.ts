@@ -72,7 +72,7 @@ export async function getAuthorize(req: Request, res: Response) {
             json: true,
         });
     } catch (err) {
-        logger.error("API error:", err.stack);
+        logger.error("API error:", err.stack || err);
         res.send("Authorization failed (API error)");
         return;
     }
