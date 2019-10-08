@@ -43,7 +43,11 @@ function resolveValue(s: string) {
             case "@":
                 return get(config, arg);
             case "$":
-                return process.env[arg];
+                let val = process.env[arg];
+                if (val != null) {
+                    val = JSON.parse(val);
+                }
+                return val;
             case "%":
                 // tslint:disable-next-line:no-eval
                 return eval(arg);
