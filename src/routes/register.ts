@@ -62,9 +62,9 @@ export async function postRegister(req: Request, res: Response) {
         }
 
         if (req.body.password.length < 8 ||
-            req.body.password.match(/[A-Z]/).length < 1 ||
-            req.body.password.match(/[a-z]/).length < 1 ||
-            req.body.password.match(/[0-9]/).length < 1) {
+            req.body.password.match(/[A-Z]/) == null ||
+            req.body.password.match(/[a-z]/) == null ||
+            req.body.password.match(/[0-9]/) == null) {
             throw new Error("Votre mot de passe doit contenir au moins 8 caractères, dont au moins 1 lettre majuscule, 1 lettre minuscule et 1 chiffre");
         }
 
