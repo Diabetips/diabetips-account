@@ -59,6 +59,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     if (req.session.refreshToken === undefined &&
         req.path !== "/login" &&
         req.path !== "/register" &&
+        req.path !== "/confirm" &&
         req.path !== "/reset-password") {
         req.session.redirect = req.url;
         res.redirect("/login");

@@ -38,7 +38,7 @@ main {
     margin-bottom: 0;
 }
 
-.login .logo, .register .logo, .reset-password .logo {
+.confirm .logo, .login .logo, .register .logo, .reset-password .logo {
     display: block;
     margin: auto;
     padding-top: 24px;
@@ -47,7 +47,7 @@ main {
 }
 
 @media only screen and (min-width: 601px) {
-    .login .logo, .register .logo, .reset-password .logo {
+    .confirm .logo, .login .logo, .register .logo, .reset-password .logo {
         padding-top: 128px !important;
         padding-bottom: 48px !important;
         height: 240px !important;
@@ -66,4 +66,26 @@ body > .container.card {
     .right-align-on-med-and-up {
         text-align: right;
     }
+}
+
+.app-logo {
+    width: 100px;
+    height: 100px;
+}
+
+.app-logo-container {
+    width: 100px;
+    height: 100px;
+    background-color: #eeeeee;
+    border-radius: 50%;
+}
+
+.app-remove {
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.app-remove:hover {
+    color: #d93c34 !important;
+
 }

@@ -18,5 +18,11 @@
             "${prefixEnd}"
         ]
     },
-    "typescript.tsdk": "node_modules/typescript/lib"
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "files.exclude": {
+        "**/build": true,
+        "**/logs": true,
+        "**/node_modules/**": true,
+        "bin": true
+    }
 }

@@ -1,0 +1,47 @@
+doctype html
+html
+    head
+        title Applications connectées
+        link(rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons")
+        link(rel="stylesheet" href="/css/materialize.min.css")
+        link(rel="stylesheet" href="/css/style.css")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    body.grey.lighten-3
+        nav.blue
+            .nav-wrapper
+                a.brand-logo(href="/" alt="Accueil")
+                    img(src="/img/logo-white.png" alt="Logo Diabetips")
+                ul#nav-mobile.right
+                    li
+                        a(href="/logout") Déconnexion
+        main.container
+            .row
+                .col.l6.offset-l3.m8.offset-m2.s12.card.white
+                    .card-content
+                        .row
+                            span.col.s12.card-title Mes applications connectées
+                        .row
+                            if apps.length == 0
+                                span
+                                    i Pas d'application connectée
+                            else
+                                .container
+                                    each app in apps
+                                        .row
+                                            .valign-wrapper
+                                                .col
+                                                    .app-logo-container
+                                                        img.app-logo(src=apiUrl + "/v1/auth/apps/" + app.appid + "/logo")
+                                                .col.s11
+                                                    span
+                                                        b #{app.name}
+                                                    br
+                                                    span.appid
+                                                        i #{app.appid}
+                                                .col.s1
+                                                    a.app-remove.black-text
+                                                        i.material-icons delete
+
+        script(src="/js/materialize.min.js")
+        script(src="/js/jquery-3.4.1.min.js")
+        script(src="/js/apps.js")

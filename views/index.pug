@@ -33,11 +33,23 @@ html
                                     span #{user.email}
                         .card-action
                             a(href="/profile") Modifier mon profil
+                .col.l4.m6.s12
+                        .card.white
+                            .card-content
+                                .row
+                                    span.col.s12.card-title Mes applications
+                                    .col.s12
+                                        span #{apps} application#{apps > 1 ? "s" : ""} connectée#{apps > 1 ? "s" : ""}
+                            .card-action
+                                a(href="/apps") Gérer mes applications
                 //.col.l4.m6.s12
-                    .card.white
-                        .card-content
-                            .row
-                                span.col.s12.card-title Mes applications
-                        .card-action
-                            a(href="/apps") Gérer mes applications
+                        .card.white
+                            .card-content
+                                .row
+                                    span.col.s12.card-title Template
+                                    .col.s12
+                                        span Lorem ipsum
+                            .card-action
+                                a(href="#") Action
+
         script(src="/js/materialize.min.js")
