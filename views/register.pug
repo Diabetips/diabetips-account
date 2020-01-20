@@ -10,30 +10,46 @@ html
         main.container
             .row.register
                 img.logo(src="/img/logo-blue.png" alt="Diabetips")
-                form.col.l6.offset-l3.m8.offset-m2.s12.card.white(method="post")
-                    .card-content
-                        .row
-                            span.col.s12.card-title <a href="/login">Connexion</a> | Inscription
-                            .col.m6.s12.input-field
-                                input.validate#first-name(type="text" name="first_name" value=prefill.first_name required)
-                                label(for="first-name") Prénom
-                            .col.m6.s12.input-field
-                                input.validate#last-name(type="text" name="last_name" value=prefill.last_name required)
-                                label(for="last-name") Nom
-                            .col.s12.input-field
-                                input.validate#email(type="email" name="email" value=prefill.email required)
-                                label(for="email") Adresse email
-                            .col.s12.input-field
-                                input.validate#password(type="password" name="password" value=prefill.password required)
-                                label(for="password") Mot de passe
-                            .col.s12.input-field
-                                input.validate#password_confirm(type="password" name="password_confirm" value=prefill.password_confirm required)
-                                label(for="password_confirm") Confirmation de mot de passe
-                            .col.s12.valign-wrapper
-                                .input-field
-                                    button.btn.waves-effect.blue(type="submit") Inscription
-                                if error
-                                    .col.red-text
-                                        i.material-icons error_outline
-                                        | #{error}
+                unless submitted
+                    form.col.l6.offset-l3.m8.offset-m2.s12.card.white(method="post")
+                        .card-content
+                            .row
+                                span.col.s12.card-title <a href="/login">Connexion</a> | Inscription
+                                .col.m6.s12.input-field
+                                    input.validate#first-name(type="text" name="first_name" value=prefill.first_name required)
+                                    label(for="first-name") Prénom
+                                .col.m6.s12.input-field
+                                    input.validate#last-name(type="text" name="last_name" value=prefill.last_name required)
+                                    label(for="last-name") Nom
+                                .col.s12.input-field
+                                    input.validate#email(type="email" name="email" value=prefill.email required)
+                                    label(for="email") Adresse email
+                                .col.s12.input-field
+                                    input.validate#password(type="password" name="password" value=prefill.password required)
+                                    label(for="password") Mot de passe
+                                .col.s12.input-field
+                                    input.validate#password_confirm(type="password" name="password_confirm" value=prefill.password_confirm required)
+                                    label(for="password_confirm") Confirmation de mot de passe
+                                .col.s12.valign-wrapper
+                                    .input-field
+                                        button.btn.waves-effect.blue(type="submit") Inscription
+                                    if error
+                                        .col.red-text
+                                            i.material-icons error_outline
+                                            | #{error}
+                else
+                    .col.l6.offset-l3.m8.offset-m2.s12.card.white
+                        .card-content
+                            .row
+                                span.card-title Compte créé
+                                .row
+                                    .col
+                                        p
+                                            | Votre compte a bien été créé, veuillez confirmer votre adresse email en
+                                            | suivant le lien contenu dans l'email de bienvenue qui vous a été envoyé.
+                                .row
+                                    .col
+                                        p.valign-wrapper
+                                            i.material-icons info_outline
+                                            | Pensez à vérifier votre dossier Spam si vous ne trouvez pas cet email.
         script(src="/js/materialize.min.js")

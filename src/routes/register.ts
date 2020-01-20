@@ -97,5 +97,5 @@ export async function postRegister(req: Request, res: Response) {
         return renderRegister(req, res, { prefill: req.body, error });
     }
 
-    return postLogin(req, res);
+    return renderRegister(req, res, { submitted: true });
 }

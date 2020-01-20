@@ -67,8 +67,12 @@ export async function postLogin(req: Request, res: Response) {
         let error = "Erreur inconnue";
         if (err.response != null && err.response.body != null) {
             const body = err.response.body;
-            if (body.error != null && body.error === "invalid_grant") {
-                error = "Adresse email ou mot de passe incorrect";
+            if (body.error != null) {
+                if (body.error === "invalid_grant") {
+                    error = "Adresse email ou mot de passe incorrect";
+                } else if (body.error === "registration_incomplete") {
+                    error = "Adresse email non confirmée";
+                }
             }
         }
         return renderLogin(req, res, { error });
