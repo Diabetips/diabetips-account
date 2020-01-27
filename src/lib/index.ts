@@ -1,5 +1,5 @@
 /*!
-** Copyright 2019 Diabetips
+** Copyright 2019-2020 Diabetips
 **
 ** All rights reserved
 **

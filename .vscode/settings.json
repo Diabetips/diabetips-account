@@ -10,7 +10,7 @@
     "fileHeaderComment.template": {
         "*": [
             "${prefixBeg}",
-            "${prefixMid} Copyright ${year} Diabetips",
+            "${prefixMid} Copyright 2019-${year} Diabetips",
             "${prefixMid}",
             "${prefixMid} All rights reserved",
             "${prefixMid}",
