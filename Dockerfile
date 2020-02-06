@@ -1,4 +1,4 @@
-ARG node_version=13.6
+ARG node_version=13.8
 
 FROM node:${node_version}
 RUN useradd -m diabetips-account
