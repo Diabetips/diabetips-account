@@ -2,8 +2,16 @@
     "diabetips": {
         "apiUrl": "https://api.diabetips.fr"
     },
+    "session": {
+        "name": "session",
+        "secret": "${DIABETIPS_SESSION_SECRET}",
+        "maxAge": 1209600000,
+        "sameSite": "strict",
+        "httpOnly": true,
+        "secure": true
+    },
     "http": {
-        "host": "::",
+        "host": "0.0.0.0",
         "port": 9080
     },
     "logger": {
@@ -13,12 +21,11 @@
                 "layout": "@{logger.layout}"
             },
             "file": {
-                "type": "file",
+                "type": "dateFile",
+                "filename": "logs/@{pkg.name}.@{env}.log",
                 "layout": "@{logger.layout}",
-                "filename": "logs/@{pkg.name}.log",
-                "maxLogSize": 10485760,
-                "backups": 10,
-                "compress": true,
+                "daysToKeep": 30,
+                "alwaysIncludePattern": true,
                 "keepFileExt": true
             }
         },

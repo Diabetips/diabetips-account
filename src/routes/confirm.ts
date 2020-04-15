@@ -17,20 +17,15 @@ function renderConfirm(req: Request, res: Response, locals: any = {}) {
 }
 
 export async function getConfirm(req: Request, res: Response) {
-    if (req.session === undefined) {
+    if (req.session == null) {
         throw new Error("Missing session");
     }
 
-    if (req.query == null ||
-        typeof req.query.code !== "string") {
+    if (typeof req.query.code !== "string" || req.query.code !== "") {
         res
             .status(400)
             .send();
         return;
-    }
-
-    if (req.body.code === "") {
-        return renderConfirm(req, res, { confirmed: false });
     }
 
     try {

@@ -19,7 +19,12 @@ function redirectToApp(req: Request, res: Response, data: any) {
     }
 
     // TODO get correct redirect uri
-    const url = new URL(req.query.redirect_uri);
+    let url: URL;
+    try {
+        url = new URL(req.query.redirect_uri as string);
+    } catch (err) {
+        return res.send("Invalid redirect_ui + " + data.error_description);
+    }
 
     if (req.query.response_type !== "token") { // "code", missing or invalid type
         Object.getOwnPropertyNames(data).forEach((prop) => {
@@ -35,7 +40,7 @@ function redirectToApp(req: Request, res: Response, data: any) {
 }
 
 export async function getAuthorize(req: Request, res: Response) {
-    if (req.session === undefined) {
+    if (req.session == null) {
         throw new Error("Missing session");
     }
 
@@ -49,9 +54,9 @@ export async function getAuthorize(req: Request, res: Response) {
         return;
     }
 
-    if (typeof req.query.response_type !== "string" &&
-        req.query.response_type !== "code" &&
-        req.query.response_type !== "token") {
+    if (req.query.response_type == null ||
+        (req.query.response_type !== "code" &&
+         req.query.response_type !== "token")) {
         return redirectToApp(req, res, {
             error: "invalid_request",
             error_description: "Missing or invalid response_type",

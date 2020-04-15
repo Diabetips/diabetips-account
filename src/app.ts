@@ -12,6 +12,7 @@ import express = require("express");
 require("express-async-errors"); // patch express to forward errors in async handlers
 import { NextFunction, Request, Response } from "express";
 
+import { config } from "./config";
 import { httpLogger, log4js, logger } from "./logger";
 import { rootRouter } from "./routes";
 
@@ -22,15 +23,7 @@ app.set("view engine", "pug");
 app.set("x-powered-by", false);
 
 app.use(log4js.connectLogger(httpLogger, { level: "info" }));
-app.use(cookieSession({
-    name: "session",
-    maxAge: 365 * 24 * 3600 * 1000, // 1 year,
-    sameSite: "strict",
-    secret: "lol",
-    httpOnly: true,
-    // secure: true,
-    // secureProxy: true,
-}));
+app.use(cookieSession(config.session));
 
 // Static files
 app.use(express.static("static"));
@@ -43,7 +36,7 @@ app.use(express.urlencoded({
 
 // Auth gate
 app.use((req: Request, res: Response, next: NextFunction) => {
-    if (req.session === undefined) {
+    if (req.session ==  null) {
         req.session = {};
     }
     if (req.session.accessToken !== undefined) {

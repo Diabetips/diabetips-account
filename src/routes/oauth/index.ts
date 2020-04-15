@@ -7,7 +7,6 @@
 */
 
 import express = require("express");
-import request = require("request-promise-native");
 
 import { getAuthorize } from "./authorize";
 

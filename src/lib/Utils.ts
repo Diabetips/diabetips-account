@@ -10,16 +10,26 @@ import fs = require("fs");
 
 export class Utils {
     /**
-     * Run a function that might throw an error. Always return a value
+     * Fallback to a default value if the specified function throws an error
      * @param fn  The function to run
-     * @param def The value to return in case an error is thrown
+     * @param defaultValue The value to return if an error is thrown
      */
-    public static guard<T>(fn: () => T, def: T): T {
+    public static guard<T>(fn: () => T, defaultValue: T): T {
         try {
             return fn();
         } catch (err) {
-            return def;
+            return defaultValue;
         }
+    }
+
+    /**
+     * Fallback to a default value if an optional value is undefined
+     * @param value The optional value
+     * @param defaultValue The default value to set if value is `undefined`
+     * @returns `val` if it is not undefined, `def` otherwise
+     */
+    public static optionDefault<T>(value: any, defaultValue: T): T {
+        return value === undefined ? defaultValue : value;
     }
 
     /**
@@ -33,10 +43,50 @@ export class Utils {
     }
 
     /**
+     * Asynchronously load a text file
+     * @param path The path of the file to load
+     */
+    public static async readFile(path: string): Promise<string> {
+        return new Promise<string>((resolve, reject) => {
+            fs.readFile(path, { encoding: "utf-8" }, (err, data) => {
+                if (err != null) {
+                    reject(err);
+                } else {
+                    resolve(data);
+                }
+            });
+        });
+    }
+
+    /**
+     * Asynchronously list the content of a director
+     * @param path The path of the directory to list
+     */
+    public static async readDir(path: string): Promise<string[]> {
+        return new Promise<string[]>((resolve, reject) => {
+            fs.readdir(path, (err, files) => {
+                if (err != null) {
+                    reject(err);
+                } else {
+                    resolve(files);
+                }
+            });
+        });
+    }
+
+    /**
+     * Asynchronously load and parse a JSON file
+     * @param path The path of the file to load
+     */
+    public static async loadJsonFile(path: string): Promise<any> {
+        return JSON.parse(await this.readFile(path));
+    }
+
+    /**
      * Synchronously load and parse a JSON file
      * @param path The path of the file to load
      */
-    public static loadJsonFile(path: string): any {
+    public static loadJsonFileSync(path: string): any {
         return JSON.parse(fs.readFileSync(path, { encoding: "utf-8" }));
     }
 

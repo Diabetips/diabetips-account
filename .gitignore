@@ -1,11 +1,15 @@
 # Build directory
 /build
 
+# Personal developer config
+/config/config.local.json
+
 # Logs directory
 /logs
 
 # NodeJS modules cache directory
 /node_modules
 
-# Sqlite database files
-*.sqlite
+# Secrets
+/env.txt
+/secrets.txt

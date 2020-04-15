@@ -17,7 +17,7 @@ function renderResetPassword(req: Request, res: Response, locals: any = {}) {
 }
 
 export function getResetPassword(req: Request, res: Response) {
-    if (req.session !== undefined &&
+    if (req.session != null &&
         req.session.accessToken !== undefined) {
         res.redirect("/");
     } else {

@@ -1,5 +1,9 @@
 {
     "diabetips": {
         "apiUrl": "http://localhost:8080"
+    },
+    "session": {
+        "secret": "All right, then. Keep your secret.",
+        "secure": false
     }
 }

@@ -26,7 +26,7 @@ import { getResetPassword, postResetPassword } from "./reset-password";
 export const rootRouter = express.Router();
 
 rootRouter.get("/", async function getIndex(req: Request, res: Response) {
-    if (req.session === undefined) {
+    if (req.session == null) {
         throw new Error("Missing session");
     }
 

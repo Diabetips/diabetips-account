@@ -24,7 +24,7 @@ function renderLogin(req: Request, res: Response, locals: any = {}) {
 }
 
 export function getLogin(req: Request, res: Response) {
-    if (req.session !== undefined &&
+    if (req.session != null &&
         req.session.accessToken !== undefined) {
         res.redirect("/");
     } else {
@@ -33,7 +33,7 @@ export function getLogin(req: Request, res: Response) {
 }
 
 export async function postLogin(req: Request, res: Response) {
-    if (req.session === undefined) {
+    if (req.session == null) {
         throw new Error("Missing session");
     }
 
@@ -82,7 +82,8 @@ export async function postLogin(req: Request, res: Response) {
     req.session.refreshToken = tokens.refresh_token;
 
     let redirect = "/";
-    if (req.session !== undefined && req.session.redirect !== undefined) {
+    if (req.session != null &&
+        req.session.redirect !== undefined) {
         redirect = req.session.redirect;
         req.session.redirect = undefined;
     }
