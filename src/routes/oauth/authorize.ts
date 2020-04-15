@@ -23,7 +23,8 @@ function redirectToApp(req: Request, res: Response, data: any) {
     try {
         url = new URL(req.query.redirect_uri as string);
     } catch (err) {
-        return res.send("Invalid redirect_ui + " + data.error_description);
+        res.send("Invalid redirect_ui + " + data.error_description);
+        return;
     }
 
     if (req.query.response_type !== "token") { // "code", missing or invalid type
@@ -57,10 +58,11 @@ export async function getAuthorize(req: Request, res: Response) {
     if (req.query.response_type == null ||
         (req.query.response_type !== "code" &&
          req.query.response_type !== "token")) {
-        return redirectToApp(req, res, {
+        redirectToApp(req, res, {
             error: "invalid_request",
             error_description: "Missing or invalid response_type",
         });
+        return;
     }
 
     let response;
