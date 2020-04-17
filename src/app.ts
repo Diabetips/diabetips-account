@@ -22,7 +22,10 @@ export const app = express();
 app.set("view engine", "pug");
 app.set("x-powered-by", false);
 
-app.use(log4js.connectLogger(httpLogger, { level: "info" }));
+app.use(log4js.connectLogger(httpLogger, {
+    level: "info",
+    format: ":remote-addr > \":method :url\" > :status :content-lengthB :response-timems",
+}));
 app.use(cookieSession(config.session));
 
 // Static files
