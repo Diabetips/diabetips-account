@@ -23,7 +23,11 @@ function redirectToApp(req: Request, res: Response, data: any) {
     try {
         url = new URL(req.query.redirect_uri as string);
     } catch (err) {
-        res.send("Invalid redirect_ui + " + data.error_description);
+        let error = "Invalid redirect_uri";
+        if (data.error != null) {
+            error += " + " + data.error_description;
+        }
+        res.send(error);
         return;
     }
 

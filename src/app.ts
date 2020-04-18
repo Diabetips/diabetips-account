@@ -19,6 +19,7 @@ import { rootRouter } from "./routes";
 export const app = express();
 
 // Express settings
+app.set("trust proxy", config.http.proxy ? 1 : false);
 app.set("view engine", "pug");
 app.set("x-powered-by", false);
 
@@ -39,7 +40,7 @@ app.use(express.urlencoded({
 
 // Auth gate
 app.use((req: Request, res: Response, next: NextFunction) => {
-    if (req.session ==  null) {
+    if (req.session == null) {
         req.session = {};
     }
     if (req.session.accessToken !== undefined) {
