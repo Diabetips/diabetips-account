@@ -1,0 +1,24 @@
+# Git directory
+/.git
+
+# VS code config directory
+/.vscode
+
+# Build directory
+/build
+
+# Logs directory
+/logs
+
+# NodeJS modules cache directory
+/node_modules
+
+# Misc files
+.dockerignore
+.gitignore
+/docker-compose*.yml
+/Dockerfile*
+/README.md
+/env.txt
+/env.txt.sample
+/tslint.json

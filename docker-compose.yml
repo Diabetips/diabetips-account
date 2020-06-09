@@ -1,0 +1,14 @@
+version: "3"
+services:
+  diabetips-account:
+    build: .
+    image: diabetips-account
+    command: npm run start
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - "/var/log/diabetips:/home/diabetips-account/logs"
+networks:
+  default:
+    external:
+      name: diabetips

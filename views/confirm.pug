@@ -1,0 +1,33 @@
+doctype html
+html
+    head
+        title Confirmation de votre compte
+        link(rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons")
+        link(rel="stylesheet" href="/css/materialize.min.css")
+        link(rel="stylesheet" href="/css/style.css")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    body.grey.lighten-3
+        main.container
+            .row.confirm
+                img.logo(src="/img/logo-blue.png" alt="Diabetips")
+                .col.l6.offset-l3.m8.offset-m2.s12.card.white
+                    .card-content
+                        .row
+                            if confirmed
+                                span.card-title Adresse email confirmée
+                                .row
+                                    .col
+                                        p
+                                            | Votre adresse email a bien été vérifiée, vous pouvez maintenant vous
+                                            | connecter à votre compte et commencer à utiliser Diabetips.
+                            else
+                                span.card-title Lien expiré
+                                .row
+                                    .col
+                                        p
+                                            | Le lien de confirmation que vous avez utilisé est invalide ou a déjà été
+                                            | utilisé.
+                            .row
+                                .col
+                                    a.btn.waves-effect.blue(href="/login") Retourner à la page de connexion
+        script(src="/js/materialize.min.js")

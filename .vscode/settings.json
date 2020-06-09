@@ -1,0 +1,27 @@
+{
+    "fileHeaderComment.parameter": {
+        "*": {
+            "prefixBeg": "/*!",
+            "prefixMid": "**",
+            "prefixEnd": "*/"
+        }
+    },
+    "fileHeaderComment.template": {
+        "*": [
+            "${prefixBeg}",
+            "${prefixMid} Copyright 2019-${year} Diabetips",
+            "${prefixMid}",
+            "${prefixMid} All rights reserved",
+            "${prefixMid}",
+            "${prefixMid} Created by ${author} on ${date}",
+            "${prefixEnd}"
+        ]
+    },
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "files.exclude": {
+        "**/build": true,
+        "**/logs": true,
+        "**/node_modules/**": true,
+        "bin": true
+    }
+}
