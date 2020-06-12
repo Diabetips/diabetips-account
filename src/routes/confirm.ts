@@ -21,7 +21,7 @@ export async function getConfirm(req: Request, res: Response) {
         throw new Error("Missing session");
     }
 
-    if (typeof req.query.code !== "string" || req.query.code !== "") {
+    if (typeof req.query.code !== "string" || req.query.code === "") {
         res
             .status(400)
             .send();
