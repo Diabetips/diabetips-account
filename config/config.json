@@ -1,6 +1,6 @@
 {
     "diabetips": {
-        "apiUrl": "https://api.diabetips.fr"
+        "apiUrl": "${DIABETIPS_API_URL}"
     },
     "session": {
         "name": "session",
