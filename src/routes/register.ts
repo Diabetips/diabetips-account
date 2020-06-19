@@ -12,8 +12,6 @@ import request = require("request-promise-native");
 import { config } from "../config";
 import { logger } from "../logger";
 
-import { postLogin } from "./login";
-
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 function renderRegister(req: Request, res: Response, locals: any = {}) {
@@ -43,7 +41,8 @@ export async function postRegister(req: Request, res: Response) {
         typeof req.body.last_name !== "string" ||
         typeof req.body.email !== "string" ||
         typeof req.body.password !== "string" ||
-        typeof req.body.password_confirm !== "string") {
+        typeof req.body.password_confirm !== "string" ||
+        typeof req.body.timezone !== "string") {
         res
             .status(400)
             .send();
@@ -71,6 +70,10 @@ export async function postRegister(req: Request, res: Response) {
         if (req.body.password !== req.body.password_confirm) {
             throw new Error("Le mot de passe et sa confirmation ne correspondent pas");
         }
+
+        if (req.body.timezone === "") {
+            req.body.timezone = "Europe/Paris";
+        }
     } catch (err) {
         return renderRegister(req, res, { prefill: req.body, error: err.message });
     }
@@ -80,7 +83,7 @@ export async function postRegister(req: Request, res: Response) {
             method: "POST",
             body: {
                 ...req.body,
-                lang: "fr",
+                lang: "fr", // disgusting...
             },
             json: true,
         });

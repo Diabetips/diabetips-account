@@ -50,7 +50,7 @@ export async function postProfile(req: Request, res: Response) {
         return;
     }
 
-    ["first_name", "last_name", "email", "password"].forEach((field) => {
+    ["first_name", "last_name", "email", "password", "timezone"].forEach((field) => {
         if (req.body[field] === "") {
             req.body[field] = undefined;
         }

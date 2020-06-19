@@ -32,6 +32,7 @@ html
                             .col.s12.input-field
                                 input#password(type="password" name="password")
                                 label(for="password") Mot de passe
+                            input(type="hidden" name="timezone")
                             .col.s12.valign-wrapper
                                 .input-field
                                     button.btn.waves-effect.blue(type="submit") Enregistrer
@@ -44,3 +45,5 @@ html
                                         i.material-icons error_outline
                                         | #{error}
         script(src="/js/materialize.min.js")
+        script(src="/js/jquery-3.4.1.min.js")
+        script(src="/js/timezone-autodetect.js")

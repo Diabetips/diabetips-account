@@ -30,6 +30,7 @@ html
                                 .col.s12.input-field
                                     input.validate#password_confirm(type="password" name="password_confirm" value=prefill.password_confirm required)
                                     label(for="password_confirm") Confirmation de mot de passe
+                                input(type="hidden" name="timezone")
                                 .col.s12.valign-wrapper
                                     .input-field
                                         button.btn.waves-effect.blue(type="submit") Inscription
@@ -53,3 +54,5 @@ html
                                             i.material-icons info_outline
                                             | Pensez à vérifier votre dossier Spam si vous ne trouvez pas cet email.
         script(src="/js/materialize.min.js")
+        script(src="/js/jquery-3.4.1.min.js")
+        script(src="/js/timezone-autodetect.js")
