@@ -21,9 +21,7 @@ async function renderProfile(req: Request, res: Response, locals: any = {}) {
 
     try {
         locals.user = await request(config.diabetips.apiUrl + "/v1/users/me", {
-            headers: {
-                Authorization: "Bearer " + req.session.accessToken,
-            },
+            auth: { bearer: req.session.accessToken },
             json: true,
         });
     } catch (err) {
@@ -75,6 +73,7 @@ export async function postProfile(req: Request, res: Response) {
     try {
         await request(config.diabetips.apiUrl + "/v1/users/me", {
             method: "PUT",
+            auth: { bearer: req.session.accessToken },
             body: req.body,
             json: true,
         });

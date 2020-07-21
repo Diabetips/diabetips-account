@@ -31,6 +31,7 @@ export async function getConfirm(req: Request, res: Response) {
     try {
         await request(config.diabetips.apiUrl + "/v1/auth/confirm", {
             method: "POST",
+            auth: { username: config.diabetips.clientId, password: config.diabetips.clientId },
             body: {
                 code: req.query.code,
             },

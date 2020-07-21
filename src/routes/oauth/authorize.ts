@@ -49,15 +49,16 @@ export async function getAuthorize(req: Request, res: Response) {
         throw new Error("Missing session");
     }
 
-    // TODO: get app manifest
     if (typeof req.query.client_id !== "string") {
-        // do something when they are implemented
+        res.send("Missing client_id query parameter");
     }
-    // TODO, retrieve or check redirect uri from app manifest
+
     if (typeof req.query.redirect_uri !== "string") {
         res.send("Missing redirect_uri query parameter");
         return;
     }
+
+    // TODO retrieve and check redirect uri from app manifest
 
     if (req.query.response_type == null ||
         (req.query.response_type !== "code" &&
@@ -73,12 +74,11 @@ export async function getAuthorize(req: Request, res: Response) {
     try {
         response = await request(config.diabetips.apiUrl + "/v1/auth/authorize", {
             method: "POST",
-            headers: {
-                Authorization: "Bearer " + req.session.accessToken,
-            },
+            auth: { bearer: req.session.accessToken },
             form: {
-                // TODO send client ID and scopes
                 response_type: req.query.response_type,
+                client_id: req.query.client_id,
+                scope: req.query.scope,
             },
             json: true,
         });

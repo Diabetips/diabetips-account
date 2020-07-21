@@ -12,6 +12,8 @@ import request = require("request-promise-native");
 import { config } from "../config";
 import { logger } from "../logger";
 
+import { postLogin } from "./login";
+
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 function renderRegister(req: Request, res: Response, locals: any = {}) {
@@ -81,6 +83,7 @@ export async function postRegister(req: Request, res: Response) {
     try {
         await request(config.diabetips.apiUrl + "/v1/users", {
             method: "POST",
+            auth: { username: config.diabetips.clientId, password: config.diabetips.clientSecret },
             body: {
                 ...req.body,
                 lang: "fr", // disgusting...
@@ -100,5 +103,5 @@ export async function postRegister(req: Request, res: Response) {
         return renderRegister(req, res, { prefill: req.body, error });
     }
 
-    return renderRegister(req, res, { submitted: true });
+    return postLogin(req, res);
 }

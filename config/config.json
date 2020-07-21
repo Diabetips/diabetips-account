@@ -1,6 +1,8 @@
 {
     "diabetips": {
-        "apiUrl": "${DIABETIPS_API_URL}"
+        "apiUrl": "${DIABETIPS_API_URL}",
+        "clientId": "${DIABETIPS_CLIENT_ID}",
+        "clientSecret": "${DIABETIPS_CLIENT_SECRET}"
     },
     "session": {
         "name": "session",

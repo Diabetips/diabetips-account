@@ -43,17 +43,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     if (req.session == null) {
         req.session = {};
     }
-    if (req.session.accessToken !== undefined) {
-        // TODO access token
-        // req.session.accessToken = undefined;
-    }
     if (req.session.accessToken === undefined &&
-        req.session.refreshToken !== undefined) {
-        // TODO refresh token
-        req.session.refreshToken = undefined;
-    }
-
-    if (req.session.refreshToken === undefined &&
         req.path !== "/login" &&
         req.path !== "/register" &&
         req.path !== "/confirm" &&

@@ -33,9 +33,7 @@ rootRouter.get("/", async function getIndex(req: Request, res: Response) {
     let user: any;
     try {
         user = await request(config.diabetips.apiUrl + "/v1/users/me", {
-            headers: {
-                Authorization: "Bearer " + req.session.accessToken,
-            },
+            auth: { bearer: req.session.accessToken },
             json: true,
         });
     } catch (err) {
@@ -46,9 +44,7 @@ rootRouter.get("/", async function getIndex(req: Request, res: Response) {
     let apps: any;
     try {
         apps = await request(config.diabetips.apiUrl + "/v1/users/me/apps", {
-            headers: {
-                Authorization: "Bearer " + req.session.accessToken,
-            },
+            auth: { bearer: req.session.accessToken },
             json: true,
         });
     } catch (err) {

@@ -20,9 +20,7 @@ async function renderApps(req: Request, res: Response, locals: any = {}) {
     try {
         locals.apiUrl = config.diabetips.apiUrl;
         locals.apps = await request(config.diabetips.apiUrl + "/v1/users/me/apps", {
-            headers: {
-                Authorization: "Bearer " + req.session.accessToken,
-            },
+            auth: { bearer: req.session.accessToken },
             json: true,
         });
     } catch (err) {
@@ -45,9 +43,7 @@ export async function postApps(req: Request, res: Response) {
     try {
         await request(config.diabetips.apiUrl + "/v1/users/me/apps/" + req.body.appid, {
             method: "DELETE",
-            headers: {
-                Authorization: "Bearer " + req.session.accessToken,
-            },
+            auth: { bearer: req.session.accessToken },
             json: true,
         });
     } catch (err) {

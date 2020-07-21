@@ -54,10 +54,12 @@ export async function postLogin(req: Request, res: Response) {
     try {
         tokens = await request(config.diabetips.apiUrl + "/v1/auth/token", {
             method: "POST",
+            auth: { username: config.diabetips.clientId, password: config.diabetips.clientSecret },
             form: {
                 grant_type: "password",
                 username: req.body.email,
                 password: req.body.password,
+                scope: "apps:read apps:write profile:write user:delete",
             },
             json: true,
         });
@@ -79,7 +81,6 @@ export async function postLogin(req: Request, res: Response) {
     }
 
     req.session.accessToken = tokens.access_token;
-    req.session.refreshToken = tokens.refresh_token;
 
     let redirect = "/";
     if (req.session != null &&
