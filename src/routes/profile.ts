@@ -37,6 +37,10 @@ export async function getProfile(req: Request, res: Response) {
 }
 
 export async function postProfile(req: Request, res: Response) {
+    if (req.session == null) {
+        throw new Error("Missing session");
+    }
+
     if (req.body == null ||
         typeof req.body.first_name !== "string" ||
         typeof req.body.last_name !== "string" ||
