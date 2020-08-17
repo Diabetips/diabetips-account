@@ -8,7 +8,6 @@
 
 import path = require("path");
 
-import cors = require("cors");
 import express = require("express");
 // tslint:disable-next-line:no-var-requires
 require("express-async-errors"); // Patch Express to handle errors in async handlers correctly
@@ -33,9 +32,15 @@ app.use(log4js.connectLogger(httpLogger, {
     format: ":remote-addr > \":method :url\" > :status :content-lengthB :response-timems",
 }));
 if (process.env.NODE_ENV !== "production") {
-    app.use(cors({
-        allowedHeaders: ["Content-Type"],
-    }));
+    let cors: (req: Request, res: Response, next: NextFunction) => void;
+    app.use(async (req, res, next) => {
+        if (cors == null) {
+            cors = require("cors")({
+                allowedHeaders: ["Content-Type"],
+            });
+        }
+        return cors(req, res, next);
+    });
 }
 app.use(express.json());
 

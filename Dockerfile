@@ -17,10 +17,10 @@ USER diabetips-account
 WORKDIR /home/diabetips-account
 COPY front/package.json front/package-lock.json ./
 RUN npm install
-COPY front/tsconfig.json front/tsconfig.base.json front/tsconfig.app.json front/tsconfig.spec.json ./
+COPY front/tsconfig.json front/tsconfig.base.json front/tsconfig.app.json ./
 COPY front/angular.json front/.browserslistrc ./
 COPY front/src ./src
-RUN npm run build --configuration=${angular_configuration}
+RUN npm run build -- --configuration=${angular_configuration}
 
 FROM node:${node_version}
 RUN useradd -m diabetips-account
