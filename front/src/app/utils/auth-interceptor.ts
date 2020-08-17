@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, mergeMap } from 'rxjs/operators';
 
-import { UserService } from '@app/services/user.service';
+import { AuthService } from '@app/services/auth.service';
 import { environment } from '@environment';
-import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
   constructor(
-    private userService: UserService,
+    private authService: AuthService,
     private router: Router) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = this.userService.token;
+    const token = this.authService.token;
     const isApiReq = req.url.startsWith(environment.apiUrl);
     if (token && isApiReq) {
       req = req.clone({
@@ -26,7 +26,7 @@ export class AuthInterceptor implements HttpInterceptor {
       return next.handle(req)
         .pipe(catchError((err) => {
           if (err instanceof HttpErrorResponse && err.error.error === 'invalid_auth') {
-            return this.userService.refreshToken()
+            return this.authService.refreshToken()
               .pipe(
                 catchError((err2) => {
                   this.router.navigate(['/logout']);

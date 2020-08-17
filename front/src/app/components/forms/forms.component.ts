@@ -4,7 +4,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators, ValidationErrors, 
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { AlertService } from '@app/services/alert.service';
-import { UserService } from '@app/services/user.service';
+import { AuthService } from '@app/services/auth.service';
 
 export enum FormsComponentMode {
   LOGIN = 'login',
@@ -31,7 +31,7 @@ export class FormsComponent implements OnInit {
 
   constructor(
     private alertService: AlertService,
-    private userService: UserService,
+    private authService: AuthService,
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute) {}
@@ -78,7 +78,7 @@ export class FormsComponent implements OnInit {
     });
 
     this.submit = () => {
-      this.userService.login(
+      this.authService.login(
         this.form.get('email').value,
         this.form.get('password').value
       ).subscribe(() => {
@@ -117,7 +117,7 @@ export class FormsComponent implements OnInit {
     });
 
     this.submit = () => {
-      this.userService.register({
+      this.authService.register({
         email: this.form.get('email').value,
         password: this.form.get('password').value,
         first_name: this.form.get('firstName').value,
@@ -154,7 +154,7 @@ export class FormsComponent implements OnInit {
     });
 
     this.submit = () => {
-      this.userService.confirm(
+      this.authService.confirm(
         this.form.get('code').value,
       ).subscribe(() => {
         this.alertService.success('Votre adresse email a bien été vérifiée !', {
@@ -206,7 +206,7 @@ export class FormsComponent implements OnInit {
 
     this.submit = () => {
       if (this.form.get('code') == null) {
-        this.userService.resetPassword(
+        this.authService.resetPassword(
           this.form.get('email').value,
         ).subscribe(() => {
           this.alertService.success(
@@ -221,7 +221,7 @@ export class FormsComponent implements OnInit {
           this.alertService.error('Erreur inconnue. Veuillez réessayer plus tard.');
         });
       } else {
-        this.userService.resetPassword2(
+        this.authService.resetPassword2(
           this.form.get('code').value,
           this.form.get('password').value,
         ).subscribe(() => {
