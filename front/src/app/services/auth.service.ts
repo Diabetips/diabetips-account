@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 
 import { User } from '@app/models/user';
 
@@ -27,6 +27,8 @@ interface LoginResponse {
 export class AuthService {
 
   token?: string;
+
+  private refreshingToken = false;
 
   constructor(private http: HttpClient) {
     this.token = localStorage.getItem('access-token');
@@ -91,12 +93,30 @@ export class AuthService {
   }
 
   refreshToken(): Observable<undefined> {
-    return this.http.post<LoginResponse>(REFRESH_URL, {
-        refresh_token: localStorage.getItem('refresh-token'),
-      })
-      .pipe(
-        map(this.doLogin, this),
-      );
+    if (this.refreshingToken) {
+      return new Observable<undefined>((subscriber) => {
+        const checkRefreshed = () => {
+          if (!this.refreshingToken) {
+            subscriber.next(undefined);
+            subscriber.complete();
+            return;
+          }
+          setTimeout(checkRefreshed, 50);
+        };
+        checkRefreshed();
+      });
+    } else {
+      this.refreshingToken = true;
+      return this.http.post<LoginResponse>(REFRESH_URL, {
+          refresh_token: localStorage.getItem('refresh-token'),
+        })
+        .pipe(
+          map(this.doLogin, this),
+          tap(() => {
+            this.refreshingToken = false;
+          }),
+        );
+    }
   }
 
   private doLogin(res: LoginResponse): undefined {

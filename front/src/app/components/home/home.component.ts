@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
+import { App } from '@app/models/app';
 import { User } from '@app/models/user';
+import { AppsService } from '@app/services/apps.service';
 import { UserService } from '@app/services/user.service';
 
 @Component({
@@ -10,13 +12,21 @@ import { UserService } from '@app/services/user.service';
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
+  apps: App[];
   user: User;
 
+  private appsSub: Subscription;
   private userSub: Subscription;
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private appsService: AppsService,
+    private userService: UserService) {}
 
   ngOnInit(): void {
+    this.appsSub = this.appsService.getApps()
+      .subscribe((apps) => {
+        this.apps = apps;
+      });
     this.userSub = this.userService.getUser()
       .subscribe((user) => {
         this.user = user;
@@ -24,6 +34,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.appsSub.unsubscribe();
     this.userSub.unsubscribe();
+  }
+
+  ready(): boolean {
+    return this.user != null && this.apps !== undefined;
   }
 }

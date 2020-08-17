@@ -1,1 +1,41 @@
-<p *ngIf="user">Bonjour {{user.first_name}} {{user.last_name}} !</p>
+<div class="row" *ngIf="ready()">
+  <div class="col">
+    <mat-card class="mat-elevation-z2">
+      <mat-card-title>Mon profil</mat-card-title>
+      <mat-card-content>
+        <div class="row">
+          <div class="col">
+            <span><strong>Nom</strong></span>
+          </div>
+          <div class="col">
+            <span>{{user.first_name}} {{user.last_name}}</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <span><strong>Adresse email</strong></span>
+          </div>
+          <div class="col">
+            <span>{{user.email}}</span>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <div class="col">
+    <mat-card class="mat-elevation-z2">
+      <mat-card-title>Mes applications connectées</mat-card-title>
+      <mat-card-content>
+        <span [ngPlural]="apps.length">
+          <ng-template ngPluralCase="=0">Aucune application connectée</ng-template>
+          <ng-template ngPluralCase="=1">1 application connectée</ng-template>
+          <ng-template ngPluralCase="other">{{apps.length}} applications connectées</ng-template>
+        </span>
+      </mat-card-content>
+      <mat-card-actions>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

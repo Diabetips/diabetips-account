@@ -156,6 +156,20 @@ body {
   text-transform: uppercase;
 }
 
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.col {
+  flex: 1;
+  margin-right: 24px;
+}
+
+.col:last-child {
+  margin-right: 0;
+}
+
 .spacer {
   flex: 1 1 auto;
 }

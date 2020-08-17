@@ -8,12 +8,35 @@ import { LogoutComponent } from '@app/components/logout/logout.component';
 import { AuthGuard } from '@app/utils/auth-guard';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'login', component: FormsComponent, data: { mode: FormsComponentMode.LOGIN } },
-  { path: 'register', component: FormsComponent, data: { mode: FormsComponentMode.REGISTER } },
-  { path: 'confirm', component: FormsComponent, data: { mode: FormsComponentMode.CONFIRM } },
-  { path: 'reset-password', component: FormsComponent, data: { mode: FormsComponentMode.RESET_PASSWORD } },
-  { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard] },
+  {
+    path: '',
+    canActivate: [AuthGuard],
+    component: HomeComponent,
+  }, {
+    path: 'login',
+    canActivate: [AuthGuard],
+    component: FormsComponent,
+    data: { mode: FormsComponentMode.LOGIN, authGuardLoggedIn: true },
+  }, {
+    path: 'register',
+    canActivate: [AuthGuard],
+    component: FormsComponent,
+    data: { mode: FormsComponentMode.REGISTER, authGuardLoggedIn: true },
+  }, {
+    path: 'reset-password',
+    canActivate: [AuthGuard],
+    component: FormsComponent,
+    data: { mode: FormsComponentMode.RESET_PASSWORD, authGuardLoggedIn: true },
+  }, {
+    path: 'confirm',
+    component: FormsComponent,
+    data: { mode: FormsComponentMode.CONFIRM },
+  },
+  {
+    path: 'logout',
+    canActivate: [AuthGuard],
+    component: LogoutComponent,
+  },
   { path: '**', redirectTo: '' },
 ];
 

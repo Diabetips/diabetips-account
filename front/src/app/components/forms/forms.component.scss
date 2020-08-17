@@ -52,20 +52,6 @@ form {
   margin-top: 8px !important;
 }
 
-.row {
-  display: flex;
-  flex-direction: row;
-}
-
-.col {
-  flex: 1;
-  margin-right: 24px;
-}
-
-.col:last-child {
-  margin-right: 0;
-}
-
 .mat-form-field {
   width: 100%;
 }

@@ -14,7 +14,7 @@ export class AuthInterceptor implements HttpInterceptor {
     private authService: AuthService,
     private router: Router) {}
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<any>, next: HttpHandler, retried: boolean = false): Observable<HttpEvent<any>> {
     const token = this.authService.token;
     const isApiReq = req.url.startsWith(environment.apiUrl);
     if (token && isApiReq) {
@@ -25,14 +25,14 @@ export class AuthInterceptor implements HttpInterceptor {
       });
       return next.handle(req)
         .pipe(catchError((err) => {
-          if (err instanceof HttpErrorResponse && err.error.error === 'invalid_auth') {
+          if (err instanceof HttpErrorResponse && err.error.error === 'invalid_auth' && !retried) {
             return this.authService.refreshToken()
               .pipe(
                 catchError((err2) => {
                   this.router.navigate(['/logout']);
                   return throwError(err2);
                 }),
-                mergeMap(() => this.intercept(req, next))
+                mergeMap(() => this.intercept(req, next, true))
               );
           }
           return throwError(err);
