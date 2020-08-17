@@ -1,0 +1,49 @@
+@import '~@angular/material/theming';
+
+:host {
+  position: fixed;
+  bottom: 0px;
+  display: block;
+  width: 100%;
+}
+
+.alert {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 12px auto;
+  width: calc(50% - 32px);
+  @media ($mat-small) {
+    width: calc(66.6666666667% - 32px);
+  }
+  @media ($mat-xsmall) {
+    width: calc(90% - 32px);
+  }
+}
+
+.alert-icon {
+  margin-right: 8px;
+}
+
+.alert-success {
+  background-color: #4caf50;
+  color: $light-primary-text;
+}
+
+.alert-info {
+  background-color: #00a1e1;
+  color: $light-primary-text;
+}
+
+.alert-warn {
+  background-color: #f99e13;
+  color: $light-primary-text;
+  font-weight: 500;
+}
+
+.alert-error {
+  background-color: #d93c34;
+  color: $light-primary-text;
+  font-weight: 500;
+}

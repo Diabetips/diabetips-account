@@ -14,4 +14,5 @@ log4js.configure(config.logger);
 
 export const logger = log4js.getLogger("default");
 export const httpLogger = log4js.getLogger("http");
+
 export { log4js };

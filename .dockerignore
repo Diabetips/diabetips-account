@@ -5,13 +5,14 @@
 /.vscode
 
 # Build directory
-/build
+**/build
+**/dist
 
 # Logs directory
-/logs
+**/logs
 
-# NodeJS modules cache directory
-/node_modules
+# NodeJS modules directory
+**/node_modules
 
 # Misc files
 .dockerignore
@@ -19,6 +20,4 @@
 /docker-compose*.yml
 /Dockerfile*
 /README.md
-/env.txt
-/env.txt.sample
-/tslint.json
+**/tslint.json

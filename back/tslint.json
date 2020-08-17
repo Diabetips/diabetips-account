@@ -1,7 +1,8 @@
 {
     "extends": "tslint:latest",
     "rules": {
-        "object-literal-sort-keys": false,
-        "no-object-literal-type-assertion": [true, {"allow-arguments": true}]
+        "interface-name": false,
+        "no-object-literal-type-assertion": [true, {"allow-arguments": true}],
+        "object-literal-sort-keys": false
     }
 }

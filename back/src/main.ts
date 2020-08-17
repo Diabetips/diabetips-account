@@ -28,6 +28,7 @@ async function main(args: string[]): Promise<void> {
     });
 
     const server = http.createServer(app);
+
     server.listen(config.http, () => {
         const addr = server.address() as net.AddressInfo;
         const isIpV6 = addr.family === "IPv6";

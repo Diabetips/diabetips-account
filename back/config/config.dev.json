@@ -5,9 +5,5 @@
     "http": {
         "port": 9080,
         "proxy": false
-    },
-    "session": {
-        "secret": "All right, then. Keep your secret.",
-        "secure": false
     }
 }

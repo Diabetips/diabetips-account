@@ -4,14 +4,6 @@
         "clientId": "${DIABETIPS_CLIENT_ID}",
         "clientSecret": "${DIABETIPS_CLIENT_SECRET}"
     },
-    "session": {
-        "name": "session",
-        "secret": "${DIABETIPS_SESSION_SECRET}",
-        "maxAge": 1209600000,
-        "sameSite": "strict",
-        "httpOnly": true,
-        "secure": true
-    },
     "http": {
         "host": "0.0.0.0",
         "port": 8080,
@@ -39,6 +31,14 @@
                 "enableCallStack": true
             },
             "http": {
+                "appenders": ["console", "file"],
+                "level": "all"
+            },
+            "sql": {
+                "appenders": ["console", "file"],
+                "level": "all"
+            },
+            "ws": {
                 "appenders": ["console", "file"],
                 "level": "all"
             }

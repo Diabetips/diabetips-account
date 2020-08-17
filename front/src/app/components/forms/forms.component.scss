@@ -1,0 +1,97 @@
+@import '~@angular/material/theming';
+
+:host {
+  display: block;
+  margin: 0 auto;
+  width: 90%;
+  max-width: 1280px;
+}
+
+.logo {
+  height: 64px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+  padding-top: 160px;
+  padding-bottom: 48px;
+  @media (max-height: 599px) {
+    padding-top: 64px;
+    padding-bottom: 24px;
+  }
+}
+
+form {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+  width: 50%;
+  @media ($mat-small) {
+    width: 66.6666666667%;
+  }
+  @media ($mat-xsmall) {
+    width: 100%;
+  }
+}
+
+.mat-card {
+  padding: 24px 32px;
+}
+
+.mat-card-title-group {
+  margin-top: 8px !important;
+  margin-bottom: 18px;
+}
+
+.mat-card-title {
+  font-weight: 500;
+}
+
+.mat-card-subtitle {
+  margin-top: 8px !important;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.col {
+  flex: 1;
+  margin-right: 24px;
+}
+
+.col:last-child {
+  margin-right: 0;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+a.mat-button {
+  padding: 0;
+  margin: 0;
+  line-height: initial;
+}
+
+.mat-card-actions {
+  margin-top: 18px;
+  margin-bottom: 8px !important;
+  display: flex;
+  align-items: center;
+  @media ($mat-xsmall) {
+    flex-wrap: wrap;
+  }
+}
+
+.mat-card-actions > * {
+  @media ($mat-xsmall) {
+    margin-bottom: 8px;
+  }
+}
+
+.mat-spinner {
+  margin: 0 12px;
+}

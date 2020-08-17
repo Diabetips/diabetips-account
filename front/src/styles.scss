@@ -1,0 +1,161 @@
+@import '~@angular/material/theming';
+
+$diabetips-typography: mat-typography-config(
+  $font-family: 'Roboto, "Helvetic Neue", sans-serif',
+  $display-4:     mat-typography-level(112px, 112px, 700, 'Mulish, "Helvetic Neue", sans-serif', $letter-spacing: -0.05em),
+  $display-3:     mat-typography-level(56px, 56px, 700, 'Mulish, "Helvetic Neue", sans-serif', $letter-spacing: -0.02em),
+  $display-2:     mat-typography-level(45px, 48px, 900, 'Mulish, "Helvetic Neue", sans-serif', $letter-spacing: -0.005em),
+  $display-1:     mat-typography-level(34px, 40px, 900, 'Mulish, "Helvetic Neue", sans-serif'),
+  $headline:      mat-typography-level(24px, 32px, 700, 'Mulish, "Helvetic Neue", sans-serif'),
+  $title:         mat-typography-level(20px, 32px, 700, 'Mulish, "Helvetic Neue", sans-serif'),
+  $subheading-2:  mat-typography-level(16px, 28px, 500, 'Mulish, "Helvetic Neue", sans-serif'),
+  $subheading-1:  mat-typography-level(15px, 24px, 500, 'Mulish, "Helvetic Neue", sans-serif'),
+  $body-2:        mat-typography-level(14px, 24px, 500, 'Rubik, "Helvetic Neue", sans-serif'),
+  $body-1:        mat-typography-level(14px, 20px, 400, 'Rubik, "Helvetic Neue", sans-serif'),
+  $caption:       mat-typography-level(12px, 20px, 400, 'Rubik, "Helvetic Neue", sans-serif'),
+  $button:        mat-typography-level(14px, 14px, 500),
+  $input:         mat-typography-level(inherit, 1.125, 400)
+);
+
+@include mat-core($diabetips-typography);
+
+$diabetips-primary: mat-palette((
+  50: #e1f6fd,
+  100: #b4e7f9,
+  200: #83d7f6,
+  300: #54c8f2,
+  400: #30bbf1,
+  500: #08aff0,
+  600: #00a1e1,
+  700: #008ece,
+  800: #007dba,
+  900: #005d98,
+  A100: #80d8ff,
+  A200: #40c4ff,
+  A400: #00b0ff,
+  A700: #0091ea,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $dark-primary-text,
+    A400: $dark-primary-text,
+    A700: $light-primary-text,
+  )
+), 600, 300, 900);
+
+$diabetips-accent: mat-palette((
+  50: #fef8e1,
+  100: #fdebb4,
+  200: #fcde84,
+  300: #fbd353,
+  400: #fac830,
+  500: #f9be1b,
+  600: #f9b115,
+  700: #f99e13,
+  800: #f88e11,
+  900: #f76f0e,
+  A100: #fdebb4,
+  A200: #fcde84,
+  A400: #fbd353,
+  A700: #f99e13,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $dark-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $dark-primary-text,
+    A400: $dark-primary-text,
+    A700: $light-primary-text,
+  )
+), A200, A100, A400);
+
+$diabetips-warn: mat-palette((
+  50: #fdebed,
+  100: #fbccd0,
+  200: #e89998,
+  300: #dc7371,
+  400: #e4544e,
+  500: #e84635,
+  600: #d93c34,
+  700: #c7332e,
+  800: #ba2d28,
+  900: #ab231d,
+  A100: #fbccd0,
+  A200: #e89998,
+  A400: #dc7371,
+  A700: #c7332e,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $dark-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $dark-primary-text,
+    A400: $dark-primary-text,
+    A700: $light-primary-text,
+  )
+), 600);
+
+$diabetips-account-theme: mat-light-theme((
+  color: (
+    primary: $diabetips-primary,
+    accent: $diabetips-accent,
+    warn: $diabetips-warn,
+  ),
+));
+
+@include angular-material-theme($diabetips-account-theme);
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: map_get($mat-grey, 100);
+  margin: 0;
+}
+
+.mat-icon {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.mat-button .mat-icon {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.mat-form-field-infix {
+  width: initial !important;
+}
+
+.mat-raised-button {
+  text-transform: uppercase;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
