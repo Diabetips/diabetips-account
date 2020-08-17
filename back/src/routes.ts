@@ -27,7 +27,9 @@ routes.post("/confirm", async (req, res) => {
         },
     });
 
-    res.send(r.data);
+    res
+        .status(r.status)
+        .send();
 });
 
 routes.post("/login", async (req, res) => {
@@ -88,7 +90,9 @@ routes.post("/reset-password", async (req, res) => {
         },
     });
 
-    res.send(r.data);
+    res
+        .status(r.status)
+        .send();
 });
 
 routes.put("/reset-password", async (req, res) => {
@@ -102,7 +106,9 @@ routes.put("/reset-password", async (req, res) => {
         },
     });
 
-    res.send(r.data);
+    res
+        .status(r.status)
+        .send();
 });
 
 async function doLogin(body: any) {

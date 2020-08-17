@@ -32,7 +32,7 @@ export class AuthService {
     this.token = localStorage.getItem('access-token');
   }
 
-  login(email: string, password: string): Observable<{}> {
+  login(email: string, password: string): Observable<undefined> {
     return this.http.post<LoginResponse>(LOGIN_URL, {
         email,
         password,
@@ -42,9 +42,9 @@ export class AuthService {
       );
   }
 
-  logout(): Observable<{}> {
+  logout(): Observable<undefined> {
     if (!this.token) {
-      return of({});
+      return of(undefined);
     }
 
     const req = {
@@ -55,40 +55,42 @@ export class AuthService {
     localStorage.removeItem('access-token');
     localStorage.removeItem('refresh-token');
 
-    return this.http.post<null>(LOGOUT_URL, req)
-      .pipe(catchError((err) => {
-        console.error('Backend logout failed:', err);
-        return of({});
-      }));
+    return this.http.post<undefined>(LOGOUT_URL, req)
+      .pipe(
+        catchError((err) => {
+          console.error('Backend logout failed:', err);
+          return of(undefined);
+        })
+      );
   }
 
-  register(data: User): Observable<{}> {
+  register(data: User): Observable<undefined> {
     return this.http.post<LoginResponse>(REGISTER_URL, data)
       .pipe(
         map(this.doLogin, this),
       );
   }
 
-  confirm(code: string): Observable<{}> {
-    return this.http.post<{}>(CONFIRM_URL, {
+  confirm(code: string): Observable<undefined> {
+    return this.http.post<undefined>(CONFIRM_URL, {
       code,
     });
   }
 
-  resetPassword(email: string): Observable<{}> {
-    return this.http.post<{}>(RESET_PASSWORD_URL, {
+  resetPassword(email: string): Observable<undefined> {
+    return this.http.post<undefined>(RESET_PASSWORD_URL, {
       email,
     });
   }
 
-  resetPassword2(code: string, password: string): Observable<{}> {
-    return this.http.put<{}>(RESET_PASSWORD_URL, {
+  resetPassword2(code: string, password: string): Observable<undefined> {
+    return this.http.put<undefined>(RESET_PASSWORD_URL, {
       code,
       password,
     });
   }
 
-  refreshToken(): Observable<{}> {
+  refreshToken(): Observable<undefined> {
     return this.http.post<LoginResponse>(REFRESH_URL, {
         refresh_token: localStorage.getItem('refresh-token'),
       })
@@ -97,10 +99,10 @@ export class AuthService {
       );
   }
 
-  private doLogin(res: LoginResponse): {} {
+  private doLogin(res: LoginResponse): undefined {
     this.token = res.access_token;
     localStorage.setItem('access-token', res.access_token);
     localStorage.setItem('refresh-token', res.refresh_token);
-    return {};
+    return undefined;
   }
 }

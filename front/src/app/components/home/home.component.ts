@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { User } from '@app/models/user';
 import { UserService } from '@app/services/user.service';
@@ -9,21 +10,20 @@ import { UserService } from '@app/services/user.service';
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
-  loading = true;
-
   user: User;
+
+  private userSub: Subscription;
 
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    this.userService.getUser()
+    this.userSub = this.userService.getUser()
       .subscribe((user) => {
         this.user = user;
-        this.loading = false;
       });
   }
 
   ngOnDestroy(): void {
+    this.userSub.unsubscribe();
   }
-
 }
