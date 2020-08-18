@@ -116,7 +116,7 @@ async function doLogin(body: any) {
         grant_type: "password",
         username: body.email,
         password: body.password,
-        scope: "apps:read apps:write profile:write user:delete"
+        scope: "apps:read apps:write auth:authorize profile:write user:delete"
     }), {
         auth: {
             username: config.diabetips.clientId,

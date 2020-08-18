@@ -23,8 +23,8 @@ export class FormsComponent implements OnInit {
 
   mode: FormsComponentMode = null;
   form: FormGroup;
-  showPassword = true;
-  showPasswordConfirm = true;
+  showPassword = false;
+  showPasswordConfirm = false;
   locked = false;
   invalidCode = false;
 
