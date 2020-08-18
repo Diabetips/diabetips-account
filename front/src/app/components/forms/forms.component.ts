@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { AbstractControl, FormBuilder, FormGroup, Validators, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { AlertService } from '@app/services/alert.service';
 import { AuthService } from '@app/services/auth.service';
+import { CustomValidators } from '@app/utils/custom-validators';
 
 export enum FormsComponentMode {
   LOGIN = 'login',
@@ -21,8 +23,8 @@ export class FormsComponent implements OnInit {
 
   mode: FormsComponentMode = null;
   form: FormGroup;
-  hidePassword = true;
-  hidePasswordConfirm = true;
+  showPassword = true;
+  showPasswordConfirm = true;
   locked = false;
   invalidCode = false;
 
@@ -34,7 +36,9 @@ export class FormsComponent implements OnInit {
     private authService: AuthService,
     private fb: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute) {}
+    private route: ActivatedRoute,
+    private title: Title,
+  ) {}
 
   ngOnInit(): void {
     this.route.data
@@ -45,15 +49,19 @@ export class FormsComponent implements OnInit {
       this.redirectUrl = params.redirectUrl;
       switch (this.mode) {
         case FormsComponentMode.LOGIN:
+          this.title.setTitle('Connexion');
           this.initLogin();
           break;
         case FormsComponentMode.REGISTER:
+          this.title.setTitle('Inscription');
           this.initRegister();
           break;
         case FormsComponentMode.CONFIRM:
+          this.title.setTitle('Confirmation adresse email');
           this.initConfirm();
           break;
         case FormsComponentMode.RESET_PASSWORD:
+          this.title.setTitle('Réinitialisation mot de passe');
           this.initResetPassword();
           break;
         default:
@@ -107,9 +115,9 @@ export class FormsComponent implements OnInit {
       password: [null, Validators.compose([
         Validators.required,
         Validators.minLength(8),
-        this.patternValidator(/[A-Z]/, { uppercaseRequired: true }),
-        this.patternValidator(/[a-z]/, { lowercaseRequired: true }),
-        this.patternValidator(/[0-9]/, { digitRequired: true }),
+        CustomValidators.patternValidator(/[A-Z]/, { uppercaseRequired: true }),
+        CustomValidators.patternValidator(/[a-z]/, { lowercaseRequired: true }),
+        CustomValidators.patternValidator(/[0-9]/, { digitRequired: true }),
       ])],
       passwordConfirm: null,
     }, {
@@ -194,9 +202,9 @@ export class FormsComponent implements OnInit {
         password: [null, Validators.compose([
           Validators.required,
           Validators.minLength(8),
-          this.patternValidator(/[A-Z]/, { uppercaseRequired: true }),
-          this.patternValidator(/[a-z]/, { lowercaseRequired: true }),
-          this.patternValidator(/[0-9]/, { digitRequired: true }),
+          CustomValidators.patternValidator(/[A-Z]/, { uppercaseRequired: true }),
+          CustomValidators.patternValidator(/[a-z]/, { lowercaseRequired: true }),
+          CustomValidators.patternValidator(/[0-9]/, { digitRequired: true }),
         ])],
         passwordConfirm: null,
       }, {
@@ -244,15 +252,6 @@ export class FormsComponent implements OnInit {
           }
         });
       }
-    };
-  }
-
-  private patternValidator(pattern: RegExp, error: ValidationErrors): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors => {
-      if (!control.value) {
-        return null;
-      }
-      return pattern.test(control.value) ? null : error;
     };
   }
 

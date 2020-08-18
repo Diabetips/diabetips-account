@@ -18,9 +18,9 @@
         <div class="col">
           <mat-form-field appearance="standard">
             <mat-label>Mot de passe</mat-label>
-            <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'">
-            <button mat-icon-button matSuffix tabindex="-1" type="button" (click)="hidePassword = !hidePassword">
-              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <input matInput formControlName="password" [type]="showPassword ? 'text' : 'password'">
+            <button mat-icon-button matSuffix tabindex="-1" type="button" (click)="showPassword = !showPassword">
+              <mat-icon>{{showPassword ? 'visibility' : 'visibility_off'}}</mat-icon>
             </button>
             <mat-error *ngIf="form.controls['password'].hasError('required')">Entrez votre mot de passe</mat-error>
           </mat-form-field>
@@ -74,9 +74,9 @@
         <div class="col">
           <mat-form-field appearance="standard">
             <mat-label>Mot de passe</mat-label>
-            <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'">
-            <button mat-icon-button matSuffix tabindex="-1" type="button" (click)="hidePassword = !hidePassword">
-              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <input matInput formControlName="password" [type]="showPassword ? 'text' : 'password'">
+            <button mat-icon-button matSuffix tabindex="-1" type="button" (click)="showPassword = !showPassword">
+              <mat-icon>{{showPassword ? 'visibility' : 'visibility_off'}}</mat-icon>
             </button>
             <mat-error *ngIf="form.controls['password'].hasError('required')">Entrez un mot de passe</mat-error>
             <mat-error *ngIf="form.controls['password'].hasError('minlength') || form.controls['password'].hasError('uppercaseRequired') || form.controls['password'].hasError('lowercaseRequired') || form.controls['password'].hasError('digitRequired')">Votre mot de passe doit contenir au moins huit caractères dont au moins une lettre majuscule, une lettre minuscule et un chiffre</mat-error>
@@ -85,9 +85,9 @@
         <div class="col">
           <mat-form-field appearance="standard">
             <mat-label>Confirmation de mot de passe</mat-label>
-            <input matInput formControlName="passwordConfirm" [type]="hidePasswordConfirm ? 'password' : 'text'">
-            <button mat-icon-button matSuffix tabindex="-1" type="button" (click)="hidePasswordConfirm = !hidePasswordConfirm">
-              <mat-icon>{{hidePasswordConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <input matInput formControlName="passwordConfirm" [type]="showPasswordConfirm ? 'text' : 'password'">
+            <button mat-icon-button matSuffix tabindex="-1" type="button" (click)="showPasswordConfirm = !showPasswordConfirm">
+              <mat-icon>{{showPasswordConfirm ? 'visibility' : 'visibility_off'}}</mat-icon>
             </button>
             <mat-error *ngIf="form.controls['passwordConfirm'].hasError('confirmMismatched')">Le mot de passe et sa confirmation ne correspondent pas</mat-error>
           </mat-form-field>
@@ -140,9 +140,9 @@
           <div class="col">
             <mat-form-field appearance="standard">
               <mat-label>Mot de passe</mat-label>
-              <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'">
-              <button mat-icon-button matSuffix tabindex="-1" type="button" (click)="hidePassword = !hidePassword">
-                <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+              <input matInput formControlName="password" autocomplete="off" [type]="showPassword ? 'text' : 'password'">
+              <button mat-icon-button matSuffix tabindex="-1" type="button" (click)="showPassword = !showPassword">
+                <mat-icon>{{showPassword ? 'visibility' : 'visibility_off'}}</mat-icon>
               </button>
               <mat-error *ngIf="form.controls['password'].hasError('required')">Entrez un mot de passe</mat-error>
               <mat-error *ngIf="form.controls['password'].hasError('minlength') || form.controls['password'].hasError('uppercaseRequired') || form.controls['password'].hasError('lowercaseRequired') || form.controls['password'].hasError('digitRequired')">Votre mot de passe doit contenir au moins huit caractères dont au moins une lettre majuscule, une lettre minuscule et un chiffre</mat-error>
@@ -153,9 +153,9 @@
           <div class="col">
             <mat-form-field appearance="standard">
               <mat-label>Confirmation de mot de passe</mat-label>
-              <input matInput formControlName="passwordConfirm" [type]="hidePasswordConfirm ? 'password' : 'text'">
-              <button mat-icon-button matSuffix tabindex="-1" type="button" (click)="hidePasswordConfirm = !hidePasswordConfirm">
-                <mat-icon>{{hidePasswordConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
+              <input matInput formControlName="passwordConfirm" autocomplete="off" [type]="showPasswordConfirm ? 'text' : 'password'">
+              <button mat-icon-button matSuffix tabindex="-1" type="button" (click)="showPasswordConfirm = !showPasswordConfirm">
+                <mat-icon>{{showPasswordConfirm ? 'visibility' : 'visibility_off'}}</mat-icon>
               </button>
               <mat-error *ngIf="form.controls['passwordConfirm'].hasError('confirmMismatched')">Le mot de passe et sa confirmation ne correspondent pas</mat-error>
             </mat-form-field>

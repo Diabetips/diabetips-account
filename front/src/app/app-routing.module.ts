@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { AppsComponent } from '@app/components/apps/apps.component';
 import { HomeComponent } from '@app/components/home/home.component';
 import { FormsComponent, FormsComponentMode } from '@app/components/forms/forms.component';
 import { LogoutComponent } from '@app/components/logout/logout.component';
+import { ProfileComponent } from '@app/components/profile/profile.component';
 
 import { AuthGuard } from '@app/utils/auth-guard';
 
@@ -12,6 +14,14 @@ const routes: Routes = [
     path: '',
     canActivate: [AuthGuard],
     component: HomeComponent,
+  }, {
+    path: 'profile',
+    canActivate: [AuthGuard],
+    component: ProfileComponent,
+  }, {
+    path: 'apps',
+    canActivate: [AuthGuard],
+    component: AppsComponent,
   }, {
     path: 'login',
     canActivate: [AuthGuard],

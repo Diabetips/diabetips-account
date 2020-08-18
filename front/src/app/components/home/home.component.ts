@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 
 import { App } from '@app/models/app';
@@ -20,9 +21,13 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private appsService: AppsService,
-    private userService: UserService) {}
+    private userService: UserService,
+    private title: Title,
+  ) {}
 
   ngOnInit(): void {
+    this.title.setTitle('Diabetips');
+
     this.appsSub = this.appsService.getApps()
       .subscribe((apps) => {
         this.apps = apps;
