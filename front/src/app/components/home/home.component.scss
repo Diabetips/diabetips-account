@@ -1,0 +1,32 @@
+@import '~@angular/material/theming';
+
+:host > .row {
+  width: 90%;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+:host > .row > .col {
+  margin: 12px 0;
+}
+
+.row .col {
+  padding: 0 .75rem;
+}
+
+.mat-card-title {
+  padding: .5rem .75rem;
+  margin-bottom: 12px;
+}
+
+.mat-card-content .col:nth-child(2) {
+  text-align: right;
+}
+
+.mat-card-actions {
+  border-top: 1px solid rgba(160, 160, 160, 0.2);
+}
+
+.mat-card-actions > .mat-button {
+  text-transform: uppercase;
+}

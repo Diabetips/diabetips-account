@@ -1,0 +1,8 @@
+<mat-card *ngFor="let alert of alerts.slice().reverse()" [class]="alertCss(alert)" [@anim]="alert.state">
+  <mat-icon class="alert-icon">{{alertIcon(alert)}}</mat-icon>
+  <span>{{alert.message}}</span>
+  <span class="spacer"></span>
+  <button mat-icon-button (click)="closeAlert(alert)">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-card>

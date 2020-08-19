@@ -1,0 +1,173 @@
+<img class="logo" src="/assets/logo_full_blue.png">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-card class="mat-elevation-z2" *ngIf="mode == 'login'">
+    <mat-card-title-group>
+      <mat-card-title>Connexion</mat-card-title>
+    </mat-card-title-group>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="standard">
+            <mat-label>Adresse email</mat-label>
+            <input matInput formControlName="email">
+            <mat-error *ngIf="form.controls['email'].hasError('required')">Entrez votre adresse email</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="standard">
+            <mat-label>Mot de passe</mat-label>
+            <input matInput formControlName="password" [type]="showPassword ? 'text' : 'password'">
+            <button mat-icon-button matSuffix tabindex="-1" type="button" (click)="showPassword = !showPassword">
+              <mat-icon>{{showPassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="form.controls['password'].hasError('required')">Entrez votre mot de passe</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <a mat-button routerLink="/reset-password">
+        <i>Mot de passe oublié ?</i>
+      </a>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" [disabled]="locked" type="submit">Connexion</button>
+      <mat-spinner mode="indeterminate" diameter="32" color="primary" *ngIf="locked"></mat-spinner>
+      <span class="spacer"></span>
+      <a mat-button color="primary" routerLink="/register">Créer un compte</a>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card class="mat-elevation-z2" *ngIf="mode == 'register'">
+    <mat-card-title-group>
+      <mat-card-title>Inscription</mat-card-title>
+      <mat-card-subtitle>Créez votre compte Diabetips</mat-card-subtitle>
+    </mat-card-title-group>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="standard">
+            <mat-label>Prénom</mat-label>
+            <input matInput formControlName="firstName">
+            <mat-error *ngIf="form.controls['firstName'].hasError('required')">Prénom obligatoire</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field appearance="standard">
+            <mat-label>Nom</mat-label>
+            <input matInput formControlName="lastName">
+            <mat-error *ngIf="form.controls['lastName'].hasError('required')">Nom obligatoire</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="standard">
+            <mat-label>Adresse email</mat-label>
+            <input matInput formControlName="email">
+            <mat-error *ngIf="form.controls['email'].hasError('required')">Adresse email obligatoire</mat-error>
+            <mat-error *ngIf="form.controls['email'].hasError('email')">Adresse email invalide</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="standard">
+            <mat-label>Mot de passe</mat-label>
+            <input matInput formControlName="password" [type]="showPassword ? 'text' : 'password'">
+            <button mat-icon-button matSuffix tabindex="-1" type="button" (click)="showPassword = !showPassword">
+              <mat-icon>{{showPassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="form.controls['password'].hasError('required')">Entrez un mot de passe</mat-error>
+            <mat-error *ngIf="form.controls['password'].hasError('minlength') || form.controls['password'].hasError('uppercaseRequired') || form.controls['password'].hasError('lowercaseRequired') || form.controls['password'].hasError('digitRequired')">Votre mot de passe doit contenir au moins huit caractères dont au moins une lettre majuscule, une lettre minuscule et un chiffre</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field appearance="standard">
+            <mat-label>Confirmation de mot de passe</mat-label>
+            <input matInput formControlName="passwordConfirm" [type]="showPasswordConfirm ? 'text' : 'password'">
+            <button mat-icon-button matSuffix tabindex="-1" type="button" (click)="showPasswordConfirm = !showPasswordConfirm">
+              <mat-icon>{{showPasswordConfirm ? 'visibility' : 'visibility_off'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="form.controls['passwordConfirm'].hasError('confirmMismatched')">Le mot de passe et sa confirmation ne correspondent pas</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" [disabled]="locked" type="submit">Inscription</button>
+      <mat-spinner mode="indeterminate" diameter="32" color="primary" *ngIf="locked"></mat-spinner>
+      <span class="spacer"></span>
+      <a mat-button color="primary" routerLink="/login">Se connecter à un compte existant</a>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card class="mat-elevation-z2" *ngIf="mode == 'confirm'">
+    <mat-card-title-group>
+      <mat-card-title>Confirmation adresse email</mat-card-title>
+    </mat-card-title-group>
+    <mat-card-content>
+      <p *ngIf="locked">Confirmation de votre adresse email en cours...</p>
+      <p *ngIf="invalidCode">Ce lien de confirmation est invalide ou a déjà été utilisé.</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <mat-spinner mode="indeterminate" diameter="32" color="primary" *ngIf="locked"></mat-spinner>
+      <span class="spacer"></span>
+      <a mat-button color="primary" routerLink="/">Retour</a>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card class="mat-elevation-z2" *ngIf="mode == 'reset-password'">
+    <mat-card-title-group>
+      <mat-card-title>Réinitialisation de mot de passe</mat-card-title>
+    </mat-card-title-group>
+    <mat-card-content>
+      <div *ngIf="form.get('email') != null">
+        <p>Vous avez oublié le mot de passe de votre compte Diabetips ? Entrez l'adresse email associée à votre compte et nous vous enverrons un lien de réinitialisation de mot de passe.</p>
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="standard">
+              <mat-label>Adresse email</mat-label>
+              <input matInput formControlName="email">
+              <mat-error *ngIf="form.controls['email'].hasError('required')">Entrez votre adresse email</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="form.get('code') != null">
+        <p>Veuillez renseigner un nouveau mot de passe pour votre compte Diabetips.</p>
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="standard">
+              <mat-label>Mot de passe</mat-label>
+              <input matInput formControlName="password" autocomplete="off" [type]="showPassword ? 'text' : 'password'">
+              <button mat-icon-button matSuffix tabindex="-1" type="button" (click)="showPassword = !showPassword">
+                <mat-icon>{{showPassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+              </button>
+              <mat-error *ngIf="form.controls['password'].hasError('required')">Entrez un mot de passe</mat-error>
+              <mat-error *ngIf="form.controls['password'].hasError('minlength') || form.controls['password'].hasError('uppercaseRequired') || form.controls['password'].hasError('lowercaseRequired') || form.controls['password'].hasError('digitRequired')">Votre mot de passe doit contenir au moins huit caractères dont au moins une lettre majuscule, une lettre minuscule et un chiffre</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="standard">
+              <mat-label>Confirmation de mot de passe</mat-label>
+              <input matInput formControlName="passwordConfirm" autocomplete="off" [type]="showPasswordConfirm ? 'text' : 'password'">
+              <button mat-icon-button matSuffix tabindex="-1" type="button" (click)="showPasswordConfirm = !showPasswordConfirm">
+                <mat-icon>{{showPasswordConfirm ? 'visibility' : 'visibility_off'}}</mat-icon>
+              </button>
+              <mat-error *ngIf="form.controls['passwordConfirm'].hasError('confirmMismatched')">Le mot de passe et sa confirmation ne correspondent pas</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" [disabled]="locked" type="submit">Envoyer</button>
+      <mat-spinner mode="indeterminate" diameter="32" color="primary" *ngIf="locked"></mat-spinner>
+      <span class="spacer"></span>
+      <a mat-button color="primary" routerLink="/">Retour</a>
+    </mat-card-actions>
+  </mat-card>
+</form>

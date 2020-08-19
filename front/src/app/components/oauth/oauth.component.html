@@ -1,0 +1,9 @@
+<div class="container" *ngIf="!error">
+  <mat-spinner mode="indeterminate" diameter="64" color="primary"></mat-spinner>
+</div>
+<div class="container" *ngIf="error">
+  <mat-icon color="warn">error</mat-icon>
+  <span class="error-main">Impossible de continuer, adresse d'autorisation invalide.</span>
+  <span class="error-details"><i>{{error}}</i></span>
+  <a mat-button routerLink="/" color="primary">Retourner à l'accueil</a>
+</div>

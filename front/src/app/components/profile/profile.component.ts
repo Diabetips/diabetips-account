@@ -1,0 +1,77 @@
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
+
+import { AlertService } from '@app/services/alert.service';
+import { UserService } from '@app/services/user.service';
+import { CustomValidators } from '@app/utils/custom-validators';
+
+@Component({
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss'],
+})
+export class ProfileComponent implements OnInit, OnDestroy {
+
+  form: FormGroup;
+
+  showPassword = false;
+  locked = false;
+
+  private userSub: Subscription;
+
+  constructor(
+    private alertService: AlertService,
+    private userService: UserService,
+    private fb: FormBuilder,
+    private title: Title,
+  ) {}
+
+  ngOnInit(): void {
+    this.title.setTitle('Mon profil');
+
+    this.form = this.fb.group({
+      firstName: null,
+      lastName: null,
+      email: [null, Validators.email],
+      password: [null, Validators.compose([
+        Validators.minLength(8),
+        CustomValidators.patternValidator(/[A-Z]/, { uppercaseRequired: true }),
+        CustomValidators.patternValidator(/[a-z]/, { lowercaseRequired: true }),
+        CustomValidators.patternValidator(/[0-9]/, { digitRequired: true }),
+      ])],
+    });
+
+    this.userSub = this.userService.getUser()
+      .subscribe((user) => {
+        this.form.get('firstName').setValue(user.first_name);
+        this.form.get('lastName').setValue(user.last_name);
+        this.form.get('email').setValue(user.email);
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.userSub.unsubscribe();
+  }
+
+  onSubmit(): void {
+    if (!this.form.valid || this.locked) {
+      return;
+    }
+    this.alertService.clear();
+    this.locked = true;
+
+    this.userService.updateUser({
+        email: this.form.get('email').value,
+        password: this.form.get('password').value,
+        first_name: this.form.get('firstName').value,
+        last_name: this.form.get('lastName').value,
+      }).subscribe(() => {
+        this.locked = false;
+        this.alertService.success('Modifications enregistrées');
+      }, () => {
+        this.locked = false;
+        this.alertService.error('Erreur inconnue. Veuillez réessayer plus tard.');
+      });
+  }
+}

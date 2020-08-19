@@ -1,0 +1,51 @@
+{
+    "diabetips": {
+        "apiUrl": "${DIABETIPS_API_URL}",
+        "clientId": "${DIABETIPS_CLIENT_ID}",
+        "clientSecret": "${DIABETIPS_CLIENT_SECRET}"
+    },
+    "http": {
+        "host": "0.0.0.0",
+        "port": 8080,
+        "proxy": true
+    },
+    "logger": {
+        "appenders": {
+            "console": {
+                "type": "console",
+                "layout": "@{logger.layout}"
+            },
+            "file": {
+                "type": "dateFile",
+                "filename": "logs/@{pkg.name}.@{env}.log",
+                "layout": "@{logger.layout}",
+                "daysToKeep": 30,
+                "alwaysIncludePattern": true,
+                "keepFileExt": true
+            }
+        },
+        "categories": {
+            "default": {
+                "appenders": ["console", "file"],
+                "level": "all",
+                "enableCallStack": true
+            },
+            "http": {
+                "appenders": ["console", "file"],
+                "level": "all"
+            },
+            "sql": {
+                "appenders": ["console", "file"],
+                "level": "all"
+            },
+            "ws": {
+                "appenders": ["console", "file"],
+                "level": "all"
+            }
+        },
+        "layout": {
+            "type": "pattern",
+            "pattern": "%[[%d] [%p] %c -%] %m [%f{1}:%l]"
+        }
+    }
+}
