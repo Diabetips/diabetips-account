@@ -1,0 +1,30 @@
+@import '~@angular/material/theming';
+
+.container {
+  width: 100%;
+  height: calc(100% - 76px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.mat-icon {
+  width: 64px;
+  height: 64px;
+  font-size: 64px;
+  margin-bottom: 12px;
+}
+
+.error-main {
+  font-size: 16px;
+}
+
+.error-details {
+  margin-top: 4px;
+  color: $dark-secondary-text;
+}
+
+a.mat-button {
+  margin-top: 16px;
+}

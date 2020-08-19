@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Observable, Subscription, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 import { App } from '@app/models/app';
 import { AlertService } from '@app/services/alert.service';
@@ -11,13 +10,11 @@ import { AppsService } from '@app/services/apps.service';
   templateUrl: './apps.component.html',
   styleUrls: ['./apps.component.scss'],
 })
-export class AppsComponent implements OnInit, OnDestroy {
+export class AppsComponent implements OnInit {
 
   locked = false;
 
   apps: App[];
-
-  private appsSub: Subscription;
 
   constructor(
     private alertService: AlertService,
@@ -31,14 +28,10 @@ export class AppsComponent implements OnInit, OnDestroy {
   }
 
   initApps(): void {
-    this.appsSub = this.appsService.getApps()
+    this.appsService.getApps()
       .subscribe((apps) => {
         this.apps = apps;
       });
-  }
-
-  ngOnDestroy(): void {
-    this.appsSub.unsubscribe();
   }
 
   appLogo(app: App): Observable<string> {

@@ -16,7 +16,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   apps: App[];
   user: User;
 
-  private appsSub: Subscription;
   private userSub: Subscription;
 
   constructor(
@@ -28,7 +27,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.title.setTitle('Diabetips');
 
-    this.appsSub = this.appsService.getApps()
+    this.appsService.getApps()
       .subscribe((apps) => {
         this.apps = apps;
       });
@@ -39,7 +38,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.appsSub.unsubscribe();
     this.userSub.unsubscribe();
   }
 

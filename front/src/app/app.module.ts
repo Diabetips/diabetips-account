@@ -22,6 +22,7 @@ import { FormsComponent } from '@app/components/forms/forms.component';
 import { HomeComponent } from '@app/components/home/home.component';
 import { NavbarComponent } from '@app/components/navbar/navbar.component';
 import { LogoutComponent } from '@app/components/logout/logout.component';
+import { OAuthComponent } from '@app/components/oauth/oauth.component';
 import { ProfileComponent } from '@app/components/profile/profile.component';
 
 import { AuthInterceptor } from '@app/utils/auth-interceptor';
@@ -36,6 +37,7 @@ import { AuthInterceptor } from '@app/utils/auth-interceptor';
     HomeComponent,
     LogoutComponent,
     NavbarComponent,
+    OAuthComponent,
     ProfileComponent,
   ],
   imports: [
