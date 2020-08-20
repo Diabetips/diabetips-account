@@ -17,7 +17,7 @@
     width: 66.6666666667%;
   }
   @media ($mat-xsmall) {
-    width: 100%;
+    width: calc(100% - 64px);
   }
   padding: 24px 32px;
 }
