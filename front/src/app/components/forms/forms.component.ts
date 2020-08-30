@@ -106,6 +106,8 @@ export class FormsComponent implements OnInit {
   }
 
   private initRegister(): void {
+    const invite = this.route.snapshot.queryParams.invite;
+
     this.form = this.fb.group({
       firstName: [null, Validators.required],
       lastName: [null, Validators.required],
@@ -120,6 +122,7 @@ export class FormsComponent implements OnInit {
         CustomValidators.patternValidator(/[0-9]/, { digitRequired: true }),
       ])],
       passwordConfirm: null,
+      invite: [invite, Validators.required],
     }, {
       validators: this.passwordConfirmValidator,
     });
@@ -132,6 +135,7 @@ export class FormsComponent implements OnInit {
         last_name: this.form.get('lastName').value,
         lang: 'fr',
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        invite: this.form.get('invite').value,
       }).subscribe(() => {
           this.alertService.success('Votre compte a bien été créé !', {
             keepAfterNavigate: true,
