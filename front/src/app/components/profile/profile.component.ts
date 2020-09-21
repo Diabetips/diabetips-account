@@ -1,8 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 
+import { DeactivateAccountDialog } from '@app/dialogs/deactivate-account/deactivate-account.component';
 import { AlertService } from '@app/services/alert.service';
 import { UserService } from '@app/services/user.service';
 import { CustomValidators } from '@app/utils/custom-validators';
@@ -24,6 +27,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private alertService: AlertService,
     private userService: UserService,
     private fb: FormBuilder,
+    private dialog: MatDialog,
+    private router: Router,
     private title: Title,
   ) {}
 
@@ -73,5 +78,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.locked = false;
         this.alertService.error('Erreur inconnue. Veuillez réessayer plus tard.');
       });
+  }
+
+  showDeactivateAccountDialog(): void {
+    const dialogRef = this.dialog.open(DeactivateAccountDialog);
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+      if (result) {
+        this.userService.deactivateUser().subscribe(() => {
+          this.router.navigate(['/logout']);
+        });
+      }
+    });
   }
 }

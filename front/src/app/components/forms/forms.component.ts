@@ -122,7 +122,7 @@ export class FormsComponent implements OnInit {
         CustomValidators.patternValidator(/[0-9]/, { digitRequired: true }),
       ])],
       passwordConfirm: null,
-      invite: [invite, Validators.required],
+      invite: [invite],
     }, {
       validators: this.passwordConfirmValidator,
     });

@@ -43,13 +43,8 @@ export class UserService {
       );
   }
 
-  deleteUser(): Observable<undefined> {
-    return this.http.delete<undefined>(USER_URL)
-      .pipe(
-        tap(() => {
-          this.userSub.next(null);
-        })
-      );
+  deactivateUser(): Observable<undefined> {
+    return this.http.delete<undefined>(USER_URL);
   }
 
   getUserPicture(): Observable<Blob> {

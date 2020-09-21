@@ -45,6 +45,8 @@
     <mat-card-actions>
       <button mat-raised-button color="primary" [disabled]="locked" type="submit">Enregistrer</button>
       <mat-spinner mode="indeterminate" diameter="32" color="primary" *ngIf="locked"></mat-spinner>
+      <span class="spacer"></span>
+      <a mat-button color="warn" (click)="showDeactivateAccountDialog()">Désactiver mon compte</a>
     </mat-card-actions>
   </mat-card>
 </form>

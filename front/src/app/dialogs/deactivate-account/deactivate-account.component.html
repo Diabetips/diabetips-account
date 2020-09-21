@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Désactiver mon compte</h1>
+<div mat-dialog-content>
+  <p>Souhaitez-vous vraiment désactiver votre compte Diabetips ?</p>
+  <p>
+    <strong>Attention : cette action ne pourra être annulée qu'en contactant notre service client.</strong>
+  </p>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" [mat-dialog-close]="false" cdkFocusInitial>Retour</button>
+  <button mat-raised-button color="warn" [mat-dialog-close]="true">Confirmer</button>
+</div>
