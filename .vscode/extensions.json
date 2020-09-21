@@ -1,6 +1,5 @@
 {
     "recommendations": [
-        "doi.fileheadercomment",
-        "ms-vscode.vscode-typescript-tslint-plugin",
+        "doi.fileheadercomment"
     ]
 }

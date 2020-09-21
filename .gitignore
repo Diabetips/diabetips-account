@@ -1,15 +1,12 @@
 # Build directory
-/build
+**/build
+**/dist
 
 # Personal developer config
-/config/config.local.json
+**/config/config.local.json
 
 # Logs directory
-/logs
+**/logs
 
-# NodeJS modules cache directory
-/node_modules
-
-# Secrets
-/env.txt
-/secrets.txt
+# NodeJS modules directory
+**/node_modules

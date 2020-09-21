@@ -1,0 +1,9 @@
+{
+    "diabetips": {
+        "apiUrl": "http://localhost:8080"
+    },
+    "http": {
+        "port": 9080,
+        "proxy": false
+    }
+}

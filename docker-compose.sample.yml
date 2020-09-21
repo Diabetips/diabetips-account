@@ -1,0 +1,11 @@
+version: "3"
+services:
+  diabetips-api:
+    build:
+      args:
+        angular_configuration: sample
+    container_name: diabetips-api.sample
+    env_file: env.sample.txt
+    networks:
+      default:
+        ipv4_address: 0.0.0.0

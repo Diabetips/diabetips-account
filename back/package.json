@@ -1,0 +1,38 @@
+{
+  "name": "diabetips-account-back",
+  "version": "0.5.0",
+  "description": "Diabetips account portal backend",
+  "main": "build/main.js",
+  "scripts": {
+    "dev": "ts-node-dev src/main.ts",
+    "start": "node build/main.js",
+    "build": "tsc",
+    "lint": "tslint -p .",
+    "test": "false",
+    "clean": "rm -rf build"
+  },
+  "private": true,
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com/Diabetips/diabetips-account.git",
+    "directory": "back"
+  },
+  "author": "Arthur MELIN <arthur.melin@epitech.eu>",
+  "dependencies": {
+    "@types/express": "^4.17.7",
+    "@types/node": "^14.0.27",
+    "axios": "^0.19.2",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "log4js": "^6.3.0",
+    "qs": "^6.9.4",
+    "typescript": "^3.9.7"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.7",
+    "cors": "^2.8.5",
+    "ts-node-dev": "^1.0.0-pre.57",
+    "tslint": "^6.1.3"
+  }
+}
