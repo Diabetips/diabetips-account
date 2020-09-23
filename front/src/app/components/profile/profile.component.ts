@@ -3,12 +3,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeUrl, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription, forkJoin } from 'rxjs';
 
 import { DeactivateAccountDialog } from '@app/dialogs/deactivate-account/deactivate-account.component';
 import { AlertService } from '@app/services/alert.service';
 import { UserService } from '@app/services/user.service';
 import { CustomValidators } from '@app/utils/custom-validators';
+import { Timezones } from '@app/utils/timezones';
 
 @Component({
   templateUrl: './profile.component.html',
@@ -18,6 +19,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
 
+  pictureFile?: Blob;
   pictureUrl?: SafeUrl;
 
   showPassword = false;
@@ -42,7 +44,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.form = this.fb.group({
       firstName: null,
       lastName: null,
-      timezone: null,
+      lang: [null, Validators.required],
+      timezone: [null, Validators.required],
       email: [null, Validators.email],
       password: [null, Validators.compose([
         Validators.minLength(8),
@@ -56,13 +59,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
       .subscribe((user) => {
         this.form.get('firstName').setValue(user.first_name);
         this.form.get('lastName').setValue(user.last_name);
+        this.form.get('lang').setValue(user.lang);
+        this.form.get('timezone').setValue(user.timezone);
         this.form.get('email').setValue(user.email);
       });
 
     this.pictureSub = this.userService.getUserPicture()
-      .subscribe((picture) => {
-        this.pictureUrl = this.domSanitizer.bypassSecurityTrustUrl(URL.createObjectURL(picture));
-      });
+      .subscribe(this.setPicture.bind(this));
   }
 
   ngOnDestroy(): void {
@@ -77,12 +80,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.alertService.clear();
     this.locked = true;
 
-    this.userService.updateUser({
-        email: this.form.get('email').value,
-        password: this.form.get('password').value,
-        first_name: this.form.get('firstName').value,
-        last_name: this.form.get('lastName').value,
-      }).subscribe(() => {
+    const observables = [];
+    observables.push(this.userService.updateUser({
+      email: this.form.get('email').value,
+      password: this.form.get('password').value,
+      first_name: this.form.get('firstName').value,
+      last_name: this.form.get('lastName').value,
+    }));
+    if (this.pictureFile) {
+      observables.push(this.userService.updateUserPicture(this.pictureFile));
+    }
+
+    forkJoin(observables)
+      .subscribe(() => {
         this.locked = false;
         this.alertService.success('Modifications enregistrées');
       }, () => {
@@ -101,5 +111,40 @@ export class ProfileComponent implements OnInit, OnDestroy {
         });
       }
     });
+  }
+
+  autodetectTimezone(): void {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (this.timezones().includes(tz)) {
+      this.form.get('timezone').setValue(tz);
+    }
+  }
+
+  timezones(): string[] {
+    return Object.keys(Timezones);
+  }
+
+  setPicture(blob: Blob): void {
+    if (!blob) {
+      return;
+    }
+    this.pictureUrl = this.domSanitizer.bypassSecurityTrustUrl(URL.createObjectURL(blob));
+  }
+
+  onPictureEditClick(): void {
+    const fileUpload = document.getElementById('pictureFile') as HTMLInputElement;
+    fileUpload.onchange = () => {
+      const file = fileUpload.files[0];
+      this.pictureFile = file;
+      this.setPicture(file);
+    };
+    fileUpload.click();
+  }
+
+  onPictureClearClick(): void {
+    this.userService.deleteUserPicture()
+      .subscribe(() => {
+        this.alertService.success('Image de profil réinitialisée');
+      });
   }
 }

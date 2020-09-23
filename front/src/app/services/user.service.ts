@@ -70,12 +70,13 @@ export class UserService {
       );
   }
 
-  deleteUserPicture(): Observable<undefined> {
+  deleteUserPicture(): Observable<Blob> {
     return this.http.delete<undefined>(PICTURE_URL)
       .pipe(
         tap(() => {
           this.pictureSub.next(null);
-        })
+        }),
+        mergeMap(() => this.getUserPicture())
       );
   }
 }

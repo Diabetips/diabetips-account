@@ -21,6 +21,25 @@ form {
   }
 }
 
+.picture-container {
+  padding: 24px 0 12px 0;
+  align-items: center;
+}
+
+.picture-container > .col {
+  flex: initial !important;
+}
+
+.picture {
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+}
+
+.picture-edit {
+  flex-grow: 1;
+}
+
 .mat-card {
   padding: 24px 32px;
 }
