@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Title } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
@@ -18,14 +18,18 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
 
+  pictureUrl?: SafeUrl;
+
   showPassword = false;
   locked = false;
 
   private userSub: Subscription;
+  private pictureSub: Subscription;
 
   constructor(
     private alertService: AlertService,
     private userService: UserService,
+    private domSanitizer: DomSanitizer,
     private fb: FormBuilder,
     private dialog: MatDialog,
     private router: Router,
@@ -38,6 +42,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.form = this.fb.group({
       firstName: null,
       lastName: null,
+      timezone: null,
       email: [null, Validators.email],
       password: [null, Validators.compose([
         Validators.minLength(8),
@@ -53,10 +58,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.form.get('lastName').setValue(user.last_name);
         this.form.get('email').setValue(user.email);
       });
+
+    this.pictureSub = this.userService.getUserPicture()
+      .subscribe((picture) => {
+        this.pictureUrl = this.domSanitizer.bypassSecurityTrustUrl(URL.createObjectURL(picture));
+      });
   }
 
   ngOnDestroy(): void {
     this.userSub.unsubscribe();
+    this.pictureSub.unsubscribe();
   }
 
   onSubmit(): void {

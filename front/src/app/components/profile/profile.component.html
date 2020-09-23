@@ -2,6 +2,7 @@
   <mat-card class="mat-elevation-z2">
     <mat-card-title>Mon profil</mat-card-title>
     <mat-card-content>
+      <img [src]="pictureUrl" />
       <div class="row">
         <div class="col">
           <mat-form-field appearance="standard">
@@ -15,6 +16,25 @@
             <mat-label>Nom</mat-label>
             <input matInput formControlName="lastName">
             <mat-error *ngIf="form.controls['lastName'].hasError('required')">Nom obligatoire</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <!--<div class="col">
+          <mat-form-field appearance="standard">
+            <mat-label>Langue</mat-label>
+            <mat-select>
+              <mat-option value="fr">Français</mat-option>
+              <mat-option value="en">Anglais</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>-->
+        <div class="col">
+          <mat-form-field appearance="standard">
+            <mat-label>Fuseau horaire</mat-label>
+            <mat-select formControlName="timezone">
+              <mat-option value="Europe/Paris">Paris</mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
       </div>
