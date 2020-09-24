@@ -4,20 +4,33 @@
     <mat-card class="mat-elevation-z2">
       <mat-card-title>Mon profil</mat-card-title>
       <mat-card-content>
-        <div class="row">
-          <div class="col">
-            <span><strong>Nom :</strong></span>
-          </div>
-          <div class="col">
-            <span>{{user.first_name}} {{user.last_name}}</span>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <span><strong>Adresse email :</strong></span>
-          </div>
-          <div class="col">
-            <span>{{user.email}}</span>
+        <div class="profile-container">
+          <img class="profile-picture" [src]="userPictureUrl"/>
+          <div class="profile-info">
+            <div class="row">
+              <div class="col">
+                <span><strong>Prénom :</strong></span>
+              </div>
+              <div class="col">
+                <span>{{user.first_name}}</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <span><strong>Nom :</strong></span>
+              </div>
+              <div class="col">
+                <span>{{user.last_name}}</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <span><strong>Email :</strong></span>
+              </div>
+              <div class="col">
+                <span>{{user.email}}</span>
+              </div>
+            </div>
           </div>
         </div>
       </mat-card-content>
