@@ -142,6 +142,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   onPictureClearClick(): void {
+    this.pictureFile = null;
     this.userService.deleteUserPicture()
       .subscribe(() => {
         this.alertService.success('Image de profil réinitialisée');

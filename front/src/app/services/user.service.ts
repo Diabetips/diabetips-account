@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { mergeMap, tap } from 'rxjs/operators';
+import { mergeMap, take, tap } from 'rxjs/operators';
 
 import { User } from '@app/models/user';
 
@@ -61,12 +61,14 @@ export class UserService {
     }
   }
 
-  updateUserPicture(picture: Blob): Observable<undefined> {
+  updateUserPicture(picture: Blob): Observable<Blob> {
     return this.http.post<undefined>(PICTURE_URL, picture)
       .pipe(
         tap(() => {
-          this.pictureSub.next(picture);
-        })
+          this.pictureSub.next(null);
+        }),
+        mergeMap(() => this.getUserPicture()),
+        take(1)
       );
   }
 
@@ -76,7 +78,8 @@ export class UserService {
         tap(() => {
           this.pictureSub.next(null);
         }),
-        mergeMap(() => this.getUserPicture())
+        mergeMap(() => this.getUserPicture()),
+        take(1)
       );
   }
 }
