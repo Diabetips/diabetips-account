@@ -2,6 +2,22 @@
   <mat-card class="mat-elevation-z2">
     <mat-card-title>Mon profil</mat-card-title>
     <mat-card-content>
+      <div class="row picture-container">
+        <div class="col">
+          <img class="picture" [src]="pictureUrl"/>
+        </div>
+        <div class="col picture-edit">
+          <button mat-button tabIndex="-1" type="button" (click)="onPictureEditClick()">
+            <mat-icon>edit</mat-icon>
+            Modifier
+          </button>
+          <button mat-button tabIndex="-1" type="button" (click)="onPictureClearClick()">
+            <mat-icon>clear</mat-icon>
+            Supprimer
+          </button>
+          <input type="file" id="pictureFile" name="pictureFile" accept="image/png,image/jpeg,image/tiff,image/webp" style="display:none;"/>
+        </div>
+      </div>
       <div class="row">
         <div class="col">
           <mat-form-field appearance="standard">
@@ -15,6 +31,28 @@
             <mat-label>Nom</mat-label>
             <input matInput formControlName="lastName">
             <mat-error *ngIf="form.controls['lastName'].hasError('required')">Nom obligatoire</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="standard">
+            <mat-label>Langue</mat-label>
+            <mat-select formControlName="lang">
+              <mat-option value="fr">Français</mat-option>
+              <mat-option value="en">Anglais</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field appearance="standard">
+            <mat-label>Fuseau horaire</mat-label>
+            <mat-select formControlName="timezone">
+              <mat-option *ngFor="let tz of timezones()" [value]="tz">{{tz}}</mat-option>
+            </mat-select>
+            <button mat-icon-button matSuffix type="button" tabindex="-1" (click)="autodetectTimezone()">
+              <mat-icon>refresh</mat-icon>
+            </button>
           </mat-form-field>
         </div>
       </div>
