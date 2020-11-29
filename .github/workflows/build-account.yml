@@ -12,6 +12,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Set build configuration
+        id: build_config
+        shell: bash
+        run: |
+          branch=${GITHUB_REF#refs/heads/}
+          if [ $branch = "master" ]
+          then
+            angular_configuration="production"
+          elif [ $branch = "dev" ]
+          then
+            angular_configuration="development"
+          fi
+          echo "##[set-output name=angular_configuration;]${angular_configuration}"
       - name: Build and push
         uses: docker/build-push-action@v1
         with:
@@ -19,6 +32,7 @@ jobs:
           password: ${{secrets.GITHUB_TOKEN}}
           registry: docker.pkg.github.com
           repository: diabetips/diabetips-account/account
+          build_args: angular_configuration=${{steps.build_config.outputs.angular_configuration}}
           tag_with_ref: true
           tag_with_sha: true
           add_git_labels: true
