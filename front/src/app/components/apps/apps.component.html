@@ -1,6 +1,7 @@
 <mat-card class="mat-elevation-z2">
   <mat-card-title>Mes applications</mat-card-title>
   <mat-card-content>
+    <p *ngIf="apps.length == 0">Aucune application connectée</p>
     <div class="row" *ngFor="let app of apps">
       <div class="app-logo-container">
         <img class="app-logo" [src]="appLogo(app) | async" />
