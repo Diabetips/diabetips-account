@@ -1,0 +1,60 @@
+@import '~@angular/material/theming';
+
+:host {
+  display: block;
+  margin: 32px auto;
+  width: 90%;
+  max-width: 1280px;
+}
+
+form {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+  width: 50%;
+  @media ($mat-small) {
+    width: 66.6666666667%;
+  }
+  @media ($mat-xsmall) {
+    width: 100%;
+  }
+}
+
+.mat-card {
+  padding: 24px 32px;
+}
+
+.mat-card-title {
+  font-weight: 500;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+a.mat-button {
+  padding: 0;
+  margin: 0;
+  line-height: initial;
+}
+
+.mat-card-actions {
+  margin-top: 18px;
+  margin-bottom: 8px !important;
+  display: flex;
+  align-items: center;
+  @media ($mat-xsmall) {
+    flex-wrap: wrap;
+  }
+}
+
+.mat-card-actions > * {
+  @media ($mat-xsmall) {
+    margin-bottom: 8px;
+  }
+}
+
+.mat-spinner {
+  margin: 0 12px;
+}

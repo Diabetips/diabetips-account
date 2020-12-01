@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { AccountComponent } from '@app/components/account/account.component';
 import { AppsComponent } from '@app/components/apps/apps.component';
 import { HomeComponent } from '@app/components/home/home.component';
 import { FormsComponent, FormsComponentMode } from '@app/components/forms/forms.component';
 import { LogoutComponent } from '@app/components/logout/logout.component';
 import { OAuthComponent } from './components/oauth/oauth.component';
 import { ProfileComponent } from '@app/components/profile/profile.component';
+import { SettingsComponent } from '@app/components/settings/settings.component';
 
 import { AuthGuard } from '@app/utils/auth-guard';
 
@@ -16,9 +18,17 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     component: HomeComponent,
   }, {
+    path: 'account',
+    canActivate: [AuthGuard],
+    component: AccountComponent,
+  }, {
     path: 'profile',
     canActivate: [AuthGuard],
     component: ProfileComponent,
+  }, {
+    path: 'settings',
+    canActivate: [AuthGuard],
+    component: SettingsComponent,
   }, {
     path: 'apps',
     canActivate: [AuthGuard],

@@ -34,57 +34,10 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field appearance="standard">
-            <mat-label>Langue</mat-label>
-            <mat-select formControlName="lang">
-              <mat-option value="fr">Français</mat-option>
-              <mat-option value="en">Anglais</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field appearance="standard">
-            <mat-label>Fuseau horaire</mat-label>
-            <mat-select formControlName="timezone">
-              <mat-option *ngFor="let tz of timezones()" [value]="tz">{{tz}}</mat-option>
-            </mat-select>
-            <button mat-icon-button matSuffix type="button" tabindex="-1" (click)="autodetectTimezone()">
-              <mat-icon>refresh</mat-icon>
-            </button>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field appearance="standard">
-            <mat-label>Adresse email</mat-label>
-            <input matInput formControlName="email">
-            <mat-error *ngIf="form.controls['email'].hasError('required')">Adresse email obligatoire</mat-error>
-            <mat-error *ngIf="form.controls['email'].hasError('email')">Adresse email invalide</mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field appearance="standard">
-            <mat-label>Mot de passe</mat-label>
-            <input matInput formControlName="password" [type]="showPassword ? 'text' : 'password'">
-            <button mat-icon-button matSuffix tabindex="-1" type="button" (click)="showPassword = !showPassword">
-              <mat-icon>{{showPassword ? 'visibility' : 'visibility_off'}}</mat-icon>
-            </button>
-            <mat-error *ngIf="form.controls['password'].hasError('required')">Entrez un mot de passe</mat-error>
-            <mat-error *ngIf="form.controls['password'].hasError('minlength') || form.controls['password'].hasError('uppercaseRequired') || form.controls['password'].hasError('lowercaseRequired') || form.controls['password'].hasError('digitRequired')">Votre mot de passe doit contenir au moins huit caractères dont au moins une lettre majuscule, une lettre minuscule et un chiffre</mat-error>
-          </mat-form-field>
-        </div>
-      </div>
     </mat-card-content>
     <mat-card-actions>
       <button mat-raised-button color="primary" [disabled]="locked" type="submit">Enregistrer</button>
       <mat-spinner mode="indeterminate" diameter="32" color="primary" *ngIf="locked"></mat-spinner>
-      <span class="spacer"></span>
-      <a mat-button color="warn" (click)="showDeactivateAccountDialog()">Désactiver mon compte</a>
     </mat-card-actions>
   </mat-card>
 </form>

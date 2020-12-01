@@ -18,14 +18,16 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { AppRoutingModule } from '@app/app-routing.module';
 
 import { AppComponent } from '@app/app.component';
+import { AccountComponent } from './components/account/account.component';
 import { AlertComponent } from '@app/components/alert/alert.component';
 import { AppsComponent } from '@app/components/apps/apps.component';
 import { FormsComponent } from '@app/components/forms/forms.component';
 import { HomeComponent } from '@app/components/home/home.component';
-import { NavbarComponent } from '@app/components/navbar/navbar.component';
 import { LogoutComponent } from '@app/components/logout/logout.component';
+import { NavbarComponent } from '@app/components/navbar/navbar.component';
 import { OAuthComponent } from '@app/components/oauth/oauth.component';
 import { ProfileComponent } from '@app/components/profile/profile.component';
+import { SettingsComponent } from '@app/components/settings/settings.component';
 
 import { DeactivateAccountDialog } from '@app/dialogs/deactivate-account/deactivate-account.component';
 
@@ -35,6 +37,7 @@ import { AuthInterceptor } from '@app/utils/auth-interceptor';
   declarations: [
     AppComponent,
 
+    AccountComponent,
     AlertComponent,
     AppsComponent,
     FormsComponent,
@@ -43,6 +46,7 @@ import { AuthInterceptor } from '@app/utils/auth-interceptor';
     NavbarComponent,
     OAuthComponent,
     ProfileComponent,
+    SettingsComponent,
 
     DeactivateAccountDialog,
   ],
