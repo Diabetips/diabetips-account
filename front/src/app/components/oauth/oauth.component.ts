@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ActivatedRoute, DefaultUrlSerializer } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
-import { OAuthClient } from '@app/models/oauth-client';
 import { OAuthService } from '@app/services/oauth.service';
 
 @Component({

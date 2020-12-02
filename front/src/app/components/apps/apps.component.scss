@@ -8,6 +8,7 @@
 }
 
 .mat-card {
+  padding: 24px 32px;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -19,7 +20,11 @@
   @media ($mat-xsmall) {
     width: calc(100% - 64px);
   }
-  padding: 24px 32px;
+}
+
+.card-info {
+  color: $dark-secondary-text;
+  padding-bottom: 16px;
 }
 
 .mat-card-title {
@@ -27,7 +32,7 @@
   margin-bottom: 32px;
 }
 
-.row {
+.apps-list .row {
   align-items: center;
   margin-bottom: 24px;
 }

@@ -9,10 +9,16 @@
 
 :host > .row > .col {
   margin: 12px 0;
+  min-width: 480px;
 }
 
 .row .col {
   padding: 0 .75rem;
+}
+
+.card-info {
+  color: $dark-secondary-text;
+  padding-bottom: 16px;
 }
 
 .profile-container {
@@ -22,23 +28,45 @@
 
 .profile-picture {
   flex-shrink: 0;
-  padding: 0 12px;
   width: 96px;
   height: 96px;
   border-radius: 50%;
+  margin-left: 12px;
+  margin-right: 24px;
 }
 
 .profile-info {
   flex-grow: 1;
 }
 
+.card-values .row {
+  padding: 8px 0;
+  border-bottom: rgba(0, 0, 0, 0.1) solid 1px;
+}
+
+.card-values .row:hover {
+  background-color: rgba(0, 0, 0, 0.06);
+  transition: 0.4s;
+}
+
+.card-values .row:last-child {
+  border-bottom: 0;
+}
+
+.card-values .col:nth-child(1) {
+  flex: 0;
+  flex-basis: 112px;
+
+  font-family: Rubik, "Helvetic Neue", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: $dark-secondary-text;
+}
+
 .mat-card-title {
   padding: .5rem .75rem;
   margin-bottom: 12px;
-}
-
-.mat-card-content .col:nth-child(2) {
-  text-align: right;
 }
 
 .mat-card-actions {

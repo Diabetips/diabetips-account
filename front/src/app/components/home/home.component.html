@@ -1,15 +1,19 @@
-<!-- TODO: this layout is ugly, do something with menus instead -->
 <div class="row" *ngIf="ready()">
   <div class="col">
     <mat-card class="mat-elevation-z2">
       <mat-card-title>Mon profil</mat-card-title>
       <mat-card-content>
+        <div class="row">
+          <div class="col">
+            <p class="card-info">Personnalisez les informations de votre profil pour utiliser les services Diabetips.</p>
+          </div>
+        </div>
         <div class="profile-container">
           <img class="profile-picture" [src]="userPictureUrl"/>
-          <div class="profile-info">
+          <div class="profile-info card-values">
             <div class="row">
               <div class="col">
-                <span><strong>Prénom :</strong></span>
+                <span>Prénom</span>
               </div>
               <div class="col">
                 <span>{{user.first_name}}</span>
@@ -17,18 +21,10 @@
             </div>
             <div class="row">
               <div class="col">
-                <span><strong>Nom :</strong></span>
+                <span>Nom</span>
               </div>
               <div class="col">
                 <span>{{user.last_name}}</span>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <span><strong>Email :</strong></span>
-              </div>
-              <div class="col">
-                <span>{{user.email}}</span>
               </div>
             </div>
           </div>
@@ -41,8 +37,79 @@
   </div>
   <div class="col">
     <mat-card class="mat-elevation-z2">
+      <mat-card-title>Mon compte</mat-card-title>
+      <mat-card-content>
+        <div class="row">
+          <div class="col">
+            <p class="card-info">Modifiez vos identifiants de connexion pour accéder à compte Diabetips.</p>
+          </div>
+        </div>
+        <div class="card-values">
+          <div class="row">
+            <div class="col">
+              <span>Adresse e-mail</span>
+            </div>
+            <div class="col">
+              <span>{{user.email}}</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <span>Mot de passe</span>
+            </div>
+            <div class="col">
+              <span>●●●●●●●●</span>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <a mat-button color="accent" routerLink="/account">Modifier mon compte</a>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <div class="col">
+    <mat-card class="mat-elevation-z2">
+      <mat-card-title>Paramètres</mat-card-title>
+      <mat-card-content>
+        <div class="row">
+          <div class="col">
+            <p class="card-info">Modifiez vos préfèrences basiques pour utiliser les services Diabetips.</p>
+          </div>
+        </div>
+        <div class="card-values">
+          <div class="row">
+            <div class="col">
+              <span>Langue</span>
+            </div>
+            <div class="col">
+              <span>{{langName(user.lang)}}</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <span>Fuseau horaire</span>
+            </div>
+            <div class="col">
+              <span>{{timezoneName(user.timezone)}}</span>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <a mat-button color="accent" routerLink="/settings">Modifier mes paramètres</a>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <div class="col">
+    <mat-card class="mat-elevation-z2">
       <mat-card-title>Mes applications connectées</mat-card-title>
       <mat-card-content>
+        <div class="row">
+          <div class="col">
+            <p class="card-info">Gérez les applications qui ont accès à votre compte Diabetips.</p>
+          </div>
+        </div>
         <div class="row">
           <div class="col">
             <span [ngPlural]="apps.length">
