@@ -19,7 +19,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   locked = false;
 
   langs: { id: string, name: string }[];
-  timezones: string[];
+  timezones: { id: string, name: string }[];
 
   private userSub: Subscription;
 
@@ -35,7 +35,10 @@ export class SettingsComponent implements OnInit, OnDestroy {
       id: key,
       name: Langs[key],
     }));
-    this.timezones = Object.keys(Timezones);
+    this.timezones = Object.keys(Timezones).map((key) => ({
+      id: key,
+      name: Timezones[key],
+    }));
 
     this.title.setTitle('Paramètres');
 
@@ -74,13 +77,12 @@ export class SettingsComponent implements OnInit, OnDestroy {
     });
   }
 
-  autodetectTimezone(): void {
+  autodetectTimezone(): boolean {
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    if (this.timezones.includes(tz)) {
+    if (this.timezones.map((t) => t.id).includes(tz)) {
       this.form.get('timezone').setValue(tz);
     }
+    return true;
   }
-
-
 
 }

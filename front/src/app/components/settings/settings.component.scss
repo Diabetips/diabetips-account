@@ -27,6 +27,12 @@ form {
 
 .mat-card-title {
   font-weight: 500;
+  padding-bottom: 12px;
+}
+
+.card-info {
+  color: $dark-secondary-text;
+  padding-bottom: 16px;
 }
 
 .mat-form-field {

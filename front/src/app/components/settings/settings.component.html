@@ -4,6 +4,11 @@
     <mat-card-content>
       <div class="row">
         <div class="col">
+          <p class="card-info">Modifiez vos préfèrences basiques d'affichage lorsque vous utiliser les services Diabetips.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
           <mat-form-field appearance="standard">
             <mat-label>Langue</mat-label>
             <mat-select formControlName="lang">
@@ -17,7 +22,7 @@
           <mat-form-field appearance="standard">
             <mat-label>Fuseau horaire</mat-label>
             <mat-select formControlName="timezone">
-              <mat-option *ngFor="let tz of timezones" [value]="tz">{{tz}}</mat-option>
+              <mat-option *ngFor="let tz of timezones" [value]="tz.id">{{tz.name}}</mat-option>
             </mat-select>
             <button mat-icon-button matSuffix matTooltip="Détecter automatiquement" type="button" tabindex="-1" (click)="autodetectTimezone()">
               <mat-icon>refresh</mat-icon>

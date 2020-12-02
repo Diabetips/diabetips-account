@@ -1,22 +1,32 @@
 <mat-card class="mat-elevation-z2">
   <mat-card-title>Mes applications</mat-card-title>
   <mat-card-content>
-    <p *ngIf="apps.length == 0">Aucune application connectée</p>
-    <div class="row" *ngFor="let app of apps">
-      <div class="app-logo-container">
-        <img class="app-logo" [src]="appLogo(app) | async" />
-      </div>
+    <div class="row">
       <div class="col">
-        <span>
-          <strong>{{app.name}}</strong><br>
-          {{app.description}}<br>
-          Connectée le : {{app.date | date}}<br>
-          Autorisations : {{app.scopes.join(', ')}}
-        </span>
+        <p class="card-info">
+          Gérez les applications qui ont accès à votre compte Diabetips.<br>
+          Révoquer l'accès des applications que vous n'utilisez plus ou auxquelles vous ne faites plus confiance.
+        </p>
       </div>
-      <button mat-icon-button matTooltip="Révoquer l'accès" class="app-delete" [disabled]="locked" (click)="appRevoke(app)">
-        <mat-icon>delete</mat-icon>
-      </button>
+    </div>
+    <div class="apps-list">
+      <p *ngIf="apps.length == 0">Aucune application connectée</p>
+      <div class="row" *ngFor="let app of apps">
+        <div class="app-logo-container">
+          <img class="app-logo" [src]="appLogo(app) | async" />
+        </div>
+        <div class="col">
+          <span>
+            <strong>{{app.name}}</strong><br>
+            {{app.description}}<br>
+            Connectée le : {{app.date | date}}<br>
+            Autorisations : {{app.scopes.join(', ')}}
+          </span>
+        </div>
+        <button mat-icon-button matTooltip="Révoquer l'accès" class="app-delete" [disabled]="locked" (click)="appRevoke(app)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
     </div>
   </mat-card-content>
 </mat-card>

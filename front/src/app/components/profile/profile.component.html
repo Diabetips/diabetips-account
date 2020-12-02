@@ -2,10 +2,16 @@
   <mat-card class="mat-elevation-z2">
     <mat-card-title>Mon profil</mat-card-title>
     <mat-card-content>
-      <div class="row picture-container">
+      <div class="row">
         <div class="col">
-          <img class="picture" [src]="pictureUrl"/>
+          <p class="card-info">
+            Personnalisez les informations de votre profil.<br>
+            Ces informations sont accessibles par les autres utilisateurs Diabetips avec lesquels vous êtes connecté.
+          </p>
         </div>
+      </div>
+      <span class="picture-label">Photo de profil</span>
+      <div class="row picture-container">
         <div class="col picture-edit">
           <button mat-button tabIndex="-1" type="button" (click)="onPictureEditClick()">
             <mat-icon>edit</mat-icon>
@@ -16,6 +22,9 @@
             Supprimer
           </button>
           <input type="file" id="pictureFile" name="pictureFile" accept="image/png,image/jpeg,image/tiff,image/webp" style="display:none;"/>
+        </div>
+        <div class="col picture-preview">
+          <img class="picture" [src]="pictureUrl"/>
         </div>
       </div>
       <div class="row">
