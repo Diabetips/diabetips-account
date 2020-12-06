@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, throwError } from 'rxjs';
+import { from, Observable, throwError } from 'rxjs';
 import { catchError, mergeMap } from 'rxjs/operators';
 
 import { AuthService } from '@app/services/auth.service';
@@ -25,17 +25,34 @@ export class AuthInterceptor implements HttpInterceptor {
       });
       return next.handle(req)
         .pipe(catchError((err) => {
-          if (err instanceof HttpErrorResponse && err.error.error === 'invalid_auth' && !retried) {
-            return this.authService.refreshToken()
+          if (retried || !(err instanceof HttpErrorResponse)) {
+            return throwError(err);
+          }
+
+          const handleRes = (res: any) => {
+            if (res.error === 'invalid_auth') {
+              return this.authService.refreshToken()
+                .pipe(
+                  catchError((err2) => {
+                    this.router.navigate(['/logout']);
+                    return throwError(err2);
+                  }),
+                  mergeMap(() => this.intercept(req, next, true))
+                );
+            }
+            return throwError(err);
+          };
+
+          if (err.error && err.error.error) {
+            return handleRes(err.error);
+          } else if (err.error instanceof Blob && err.error.type === 'application/json') {
+            return from(err.error.text())
               .pipe(
-                catchError((err2) => {
-                  this.router.navigate(['/logout']);
-                  return throwError(err2);
-                }),
-                mergeMap(() => this.intercept(req, next, true))
+                mergeMap((decoded) => {
+                  return handleRes(JSON.parse(decoded));
+                })
               );
           }
-          return throwError(err);
         }));
     } else {
       return next.handle(req);
