@@ -1,9 +1,7 @@
 version: "3"
 services:
   diabetips-api:
-    build:
-      args:
-        angular_configuration: sample
+    image: docker.pkg.github.com/diabetips/diabetips-account/account:sample
     container_name: diabetips-api.sample
     env_file: env.sample.txt
     networks:
