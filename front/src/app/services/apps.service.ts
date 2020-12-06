@@ -20,8 +20,8 @@ export class AppsService {
     return this.http.get<App[]>(USER_APPS_URL);
   }
 
-  getAppLogo(app: App): Observable<string> {
-    return of(`${APPS_URL}/${app.appid}/logo`);
+  getAppLogo(appid: string): Observable<string> {
+    return of(`${APPS_URL}/${appid}/logo`);
   }
 
   revokeApp(app: App): Observable<undefined> {

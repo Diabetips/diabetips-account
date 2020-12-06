@@ -1,9 +1,39 @@
-<div class="container" *ngIf="!error">
+<div class="container" *ngIf="!error && !client">
   <mat-spinner mode="indeterminate" diameter="64" color="primary"></mat-spinner>
 </div>
+<div class="container" *ngIf="!error && client">
+  <mat-card class="mat-elevation-z2">
+    <img [src]="clientLogo() | async">
+    <h2>
+      <span class="app-name">{{client.name}}</span>
+      <mat-icon color="primary" class="app-verified" matTooltip="Application officielle Diabetips" matTooltipPosition="above" *ngIf="client.internal">verified</mat-icon>
+      <br>
+      souhaite accèder à votre compte Diabetips
+    </h2>
+    <div *ngIf="scopes.length > 0">
+      <p>{{client.name}} aura accès à :</p>
+      <div class="row scope-category" *ngFor="let category of scopeCategories">
+        <div class="col">
+          <mat-icon color="accent" class="scope-category-icon">{{category.icon}}</mat-icon>
+        </div>
+        <div class="col">
+          <span class="scope-category-text">{{category.text}}</span>
+          <br>
+          <span class="scope-category-details">Permissions : {{category.scopes}}</span>
+        </div>
+      </div>
+    </div>
+    <mat-card-actions>
+      <button mat-button color="warn" (click)="reject()">Refuser</button>
+      <span class="spacer"></span>
+      <mat-spinner mode="indeterminate" diameter="32" color="primary" *ngIf="locked"></mat-spinner>
+      <button mat-raised-button color="primary" (click)="accept()">Autoriser</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
 <div class="container" *ngIf="error">
-  <mat-icon color="warn">error</mat-icon>
+  <mat-icon class="error-icon" color="warn">error</mat-icon>
   <span class="error-main">Impossible de continuer, adresse d'autorisation invalide.</span>
   <span class="error-details"><i>{{error}}</i></span>
-  <a mat-button routerLink="/" color="primary">Retourner à l'accueil</a>
+  <a class="error-button" mat-button routerLink="/" color="primary">Retourner à l'accueil</a>
 </div>

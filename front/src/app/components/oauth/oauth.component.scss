@@ -9,7 +9,61 @@
   justify-content: center;
 }
 
-.mat-icon {
+.mat-card {
+  width: 50%;
+  @media ($mat-small) {
+    width: 66.6666666667%;
+  }
+  @media ($mat-xsmall) {
+    width: 100%;
+  }
+  max-width: 720px;
+  padding: 24px 32px;
+}
+
+.app-name {
+  font-weight: 900;
+}
+
+.app-verified {
+  padding: 4px;
+  transform: translateY(-5px);
+}
+
+.scope-category {
+  padding: 6px 0;
+  border-bottom: rgba(0, 0, 0, 0.1) solid 1px;
+  align-items: center;
+}
+
+.scope-category:last-child {
+  border-bottom: 0;
+}
+
+.scope-category:hover {
+  background-color: rgba(0, 0, 0, 0.06);
+  transition: 0.4s;
+}
+
+
+.scope-category .col:first-child {
+  flex: 0;
+  height: 32px;
+}
+
+.scope-category-icon {
+  font-size: 32px;
+}
+
+.scope-category-text {
+  font-weight: 700;
+}
+
+.scope-category-details {
+  font-size: 13px;
+}
+
+.error-icon {
   width: 64px;
   height: 64px;
   font-size: 64px;
@@ -25,6 +79,22 @@
   color: $dark-secondary-text;
 }
 
-a.mat-button {
+.error-button {
   margin-top: 16px;
+}
+
+.mat-card-actions {
+  margin-top: 18px;
+  margin-bottom: 8px !important;
+  display: flex;
+  align-items: center;
+  @media ($mat-xsmall) {
+    flex-wrap: wrap;
+  }
+}
+
+.mat-card-actions > * {
+  @media ($mat-xsmall) {
+    margin-bottom: 8px;
+  }
 }

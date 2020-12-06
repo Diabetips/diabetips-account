@@ -35,7 +35,7 @@ export class AppsComponent implements OnInit {
   }
 
   appLogo(app: App): Observable<string> {
-    return this.appsService.getAppLogo(app);
+    return this.appsService.getAppLogo(app.appid);
   }
 
   appRevoke(app: App): void {
