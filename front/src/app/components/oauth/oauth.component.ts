@@ -1,18 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { forkJoin, Observable, Subscription } from 'rxjs';
 
+import { App } from '@app/models/app';
 import { OAuthClient } from '@app/models/oauth-client';
+import { User } from '@app/models/user';
 import { AppsService } from '@app/services/apps.service';
 import { OAuthService } from '@app/services/oauth.service';
+import { UserService } from '@app/services/user.service';
 import { AuthScopes, AuthScopesData, AuthScopesImplicit } from '@app/utils/auth-scopes';
 
 @Component({
   templateUrl: './oauth.component.html',
   styleUrls: ['./oauth.component.scss'],
 })
-export class OAuthComponent implements OnInit {
+export class OAuthComponent implements OnInit, OnDestroy {
 
   clientId: string;
   redirectUri: string;
@@ -21,12 +25,19 @@ export class OAuthComponent implements OnInit {
 
   error: string;
   client: OAuthClient;
+  user: User;
+  userPictureUrl: SafeUrl;
   scopeCategories: { text: string, icon: string, scopes: string }[];
   locked = false;
+
+  private userSub: Subscription;
+  private pictureSub: Subscription;
 
   constructor(
     private appsService: AppsService,
     private oauthService: OAuthService,
+    private userService: UserService,
+    private domSanitizer: DomSanitizer,
     private route: ActivatedRoute,
   ) {}
 
@@ -37,8 +48,18 @@ export class OAuthComponent implements OnInit {
       return;
     }
 
-    this.oauthService.getClient(this.clientId)
-      .subscribe((client) => {
+    this.userSub = this.userService.getUser()
+      .subscribe((user) => { this.user = user; });
+
+    this.pictureSub = this.userService.getUserPicture()
+      .subscribe((picture) => {
+        this.userPictureUrl = this.domSanitizer.bypassSecurityTrustUrl(URL.createObjectURL(picture));
+      });
+
+    forkJoin([
+      this.oauthService.getClient(this.clientId),
+      this.appsService.getApps(true)])
+      .subscribe(([client, apps]) => {
         const paramRedirectUri = this.route.snapshot.queryParams.redirect_uri;
         if (paramRedirectUri && paramRedirectUri !== client.redirect_uri) {
           this.error = 'Mismatched redirect_uri';
@@ -57,6 +78,10 @@ export class OAuthComponent implements OnInit {
           return;
         }
 
+        if (!this.route.snapshot.queryParams.prompt && this.clientIsAlreadyAuthorized(client, apps)) {
+          return this.accept();
+        }
+
         this.client = client;
       }, (err) => {
         if (err instanceof HttpErrorResponse) {
@@ -67,6 +92,11 @@ export class OAuthComponent implements OnInit {
         }
         this.error = 'Failed to get client info';
       });
+  }
+
+  ngOnDestroy(): void {
+    this.userSub.unsubscribe();
+    this.pictureSub.unsubscribe();
   }
 
   accept(): void {
@@ -114,7 +144,7 @@ export class OAuthComponent implements OnInit {
 
       this.scopeCategories = [];
       Object.keys(AuthScopesData).forEach((c) => {
-        const scopes = Object.keys(AuthScopesData[c]).filter((s) => s !== '_' && this.scopes.includes(c + ':' + s));
+        const scopes = Object.keys(AuthScopesData[c]).filter((s) => s !== '_' && this.scopes.includes(c + (s !== '' ? ':' + s : '')));
         if (scopes.length !== 0) {
           this.scopeCategories.push({
             ...AuthScopesData[c]._,
@@ -147,5 +177,9 @@ export class OAuthComponent implements OnInit {
       });
     }
     window.location.href = url.toString();
+  }
+
+  private clientIsAlreadyAuthorized(client: OAuthClient, apps: App[]): boolean {
+    return apps.some((app) => app.appid === client.appid && this.scopes.every((s) => app.scopes.includes(s)));
   }
 }

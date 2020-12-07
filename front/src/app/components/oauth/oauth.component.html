@@ -1,7 +1,7 @@
 <div class="container" *ngIf="!error && !client">
   <mat-spinner mode="indeterminate" diameter="64" color="primary"></mat-spinner>
 </div>
-<div class="container" *ngIf="!error && client">
+<div class="container" *ngIf="!error && client && user">
   <mat-card class="mat-elevation-z2">
     <img [src]="clientLogo() | async">
     <h2>
@@ -10,6 +10,10 @@
       <br>
       souhaite accèder à votre compte Diabetips
     </h2>
+    <div class="user">
+      <img class="user-picture" [src]="userPictureUrl">
+      <span>{{user.email}}</span>
+    </div>
     <div *ngIf="scopes.length > 0">
       <p>{{client.name}} aura accès à :</p>
       <div class="row scope-category" *ngFor="let category of scopeCategories">
@@ -19,7 +23,7 @@
         <div class="col">
           <span class="scope-category-text">{{category.text}}</span>
           <br>
-          <span class="scope-category-details">Permissions : {{category.scopes}}</span>
+          <span class="scope-category-details" *ngIf="category.scopes.length > 0">Permissions : {{category.scopes}}</span>
         </div>
       </div>
     </div>

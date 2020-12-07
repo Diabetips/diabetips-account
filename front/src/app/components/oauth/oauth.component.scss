@@ -30,6 +30,25 @@
   transform: translateY(-5px);
 }
 
+.user {
+  border: 1px solid rgba(0, 0, 0, 0.22);
+  border-radius: 16px;
+  width: fit-content;
+  margin-bottom: 24px;
+  padding: 4px 6px;
+}
+
+.user * {
+  margin: 0 4px;
+}
+
+.user-picture {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
 .scope-category {
   padding: 6px 0;
   border-bottom: rgba(0, 0, 0, 0.1) solid 1px;

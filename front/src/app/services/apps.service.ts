@@ -16,8 +16,12 @@ export class AppsService {
 
   constructor(private http: HttpClient) {}
 
-  getApps(): Observable<App[]> {
-    return this.http.get<App[]>(USER_APPS_URL);
+  getApps(internal: boolean = false): Observable<App[]> {
+    let url = USER_APPS_URL;
+    if (internal) {
+      url += '?internal=true';
+    }
+    return this.http.get<App[]>(url);
   }
 
   getAppLogo(appid: string): Observable<string> {

@@ -19,8 +19,7 @@
           <span>
             <strong>{{app.name}}</strong><br>
             {{app.description}}<br>
-            Connectée le : {{app.date | date}}<br>
-            Autorisations : {{app.scopes.join(', ')}}
+            Connectée le : {{app.date | date}}
           </span>
         </div>
         <button mat-icon-button matTooltip="Révoquer l'accès" class="app-delete" [disabled]="locked" (click)="appRevoke(app)">
