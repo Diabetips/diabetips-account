@@ -34,7 +34,7 @@ export class OAuthService {
   authorize(clientId: string, responseType: string, scope: string): Observable<AuthorizationRes> {
     let body = new HttpParams()
       .set('response_type', responseType)
-      .set('client_id',  clientId)
+      .set('client_id', clientId);
     if (scope) {
       body = body.set('scope', scope);
     }

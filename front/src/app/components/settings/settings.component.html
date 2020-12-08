@@ -1,0 +1,39 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-card class="mat-elevation-z2">
+    <mat-card-title>Paramètres</mat-card-title>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <p class="card-info">Modifiez vos préfèrences d'affichage lorsque vous utiliser les services Diabetips.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="standard">
+            <mat-label>Langue</mat-label>
+            <mat-select formControlName="lang">
+              <mat-option *ngFor="let l of langs" [value]="l.id">{{l.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="standard">
+            <mat-label>Fuseau horaire</mat-label>
+            <mat-select formControlName="timezone">
+              <mat-option *ngFor="let tz of timezones" [value]="tz.id">{{tz.name}}</mat-option>
+            </mat-select>
+            <button mat-icon-button matSuffix matTooltip="Détecter automatiquement" type="button" tabindex="-1" (click)="autodetectTimezone()">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" [disabled]="locked" type="submit">Enregistrer</button>
+      <mat-spinner mode="indeterminate" diameter="32" color="primary" *ngIf="locked"></mat-spinner>
+    </mat-card-actions>
+  </mat-card>
+</form>

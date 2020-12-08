@@ -6,6 +6,8 @@ import { App } from '@app/models/app';
 import { User } from '@app/models/user';
 import { AppsService } from '@app/services/apps.service';
 import { UserService } from '@app/services/user.service';
+import { Langs } from '@app/utils/langs';
+import { Timezones } from '@app/utils/timezones';
 
 @Component({
   templateUrl: './home.component.html',
@@ -52,4 +54,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   ready(): boolean {
     return this.user != null && this.apps !== undefined;
   }
+
+  langName(id: string): string {
+    return Langs[id];
+  }
+
+  timezoneName(id: string): string {
+    return Timezones[id];
+  }
+
 }

@@ -1,14 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeUrl, Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
-import { Observable, Subscription, forkJoin } from 'rxjs';
+import { Subscription, forkJoin, Observable } from 'rxjs';
 
-import { DeactivateAccountDialog } from '@app/dialogs/deactivate-account/deactivate-account.component';
 import { AlertService } from '@app/services/alert.service';
 import { UserService } from '@app/services/user.service';
-import { CustomValidators } from '@app/utils/custom-validators';
 import { Timezones } from '@app/utils/timezones';
 
 @Component({
@@ -22,7 +18,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   pictureFile?: Blob;
   pictureUrl?: SafeUrl;
 
-  showPassword = false;
   locked = false;
 
   private userSub: Subscription;
@@ -33,8 +28,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private domSanitizer: DomSanitizer,
     private fb: FormBuilder,
-    private dialog: MatDialog,
-    private router: Router,
     private title: Title,
   ) {}
 
@@ -46,13 +39,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
       lastName: null,
       lang: [null, Validators.required],
       timezone: [null, Validators.required],
-      email: [null, Validators.email],
-      password: [null, Validators.compose([
-        Validators.minLength(8),
-        CustomValidators.patternValidator(/[A-Z]/, { uppercaseRequired: true }),
-        CustomValidators.patternValidator(/[a-z]/, { lowercaseRequired: true }),
-        CustomValidators.patternValidator(/[0-9]/, { digitRequired: true }),
-      ])],
     });
 
     this.userSub = this.userService.getUser()
@@ -61,7 +47,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.form.get('lastName').setValue(user.last_name);
         this.form.get('lang').setValue(user.lang);
         this.form.get('timezone').setValue(user.timezone);
-        this.form.get('email').setValue(user.email);
       });
 
     this.pictureSub = this.userService.getUserPicture()
@@ -80,10 +65,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.alertService.clear();
     this.locked = true;
 
-    const observables = [];
+    const observables: Observable<any>[] = [];
     observables.push(this.userService.updateUser({
-      email: this.form.get('email').value,
-      password: this.form.get('password').value,
       first_name: this.form.get('firstName').value,
       last_name: this.form.get('lastName').value,
     }));
@@ -99,18 +82,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.locked = false;
         this.alertService.error('Erreur inconnue. Veuillez réessayer plus tard.');
       });
-  }
-
-  showDeactivateAccountDialog(): void {
-    const dialogRef = this.dialog.open(DeactivateAccountDialog);
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
-      if (result) {
-        this.userService.deactivateUser().subscribe(() => {
-          this.router.navigate(['/logout']);
-        });
-      }
-    });
   }
 
   autodetectTimezone(): void {
@@ -148,4 +119,5 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.alertService.success('Image de profil réinitialisée');
       });
   }
+
 }

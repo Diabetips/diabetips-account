@@ -35,29 +35,6 @@ form {
   padding-bottom: 16px;
 }
 
-.picture-container {
-  align-items: center;
-}
-
-.picture-label {
-  color: rgba(0, 0, 0, 0.7);
-  font-size: 10.5px;
-}
-
-.picture-edit {
-  flex-grow: 1;
-}
-
-.picture-preview {
-  flex-grow: 0;
-}
-
-.picture {
-  width: 96px;
-  height: 96px;
-  border-radius: 50%;
-}
-
 .mat-form-field {
   width: 100%;
 }
