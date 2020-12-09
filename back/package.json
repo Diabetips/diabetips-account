@@ -1,6 +1,6 @@
 {
   "name": "diabetips-account-back",
-  "version": "0.6.0",
+  "version": "1.0.0",
   "description": "Diabetips account portal backend",
   "main": "build/main.js",
   "scripts": {
